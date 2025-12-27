@@ -7,8 +7,9 @@ export default function NavBar() {
       {/* LEFT: Logo + Brand */}
       <Link to="/" className="flex items-center gap-4 group">
         
-        {/* CSS-Only Logo: 5-Box Star Concept */}
-        <div className="relative w-8 h-8 flex items-center justify-center group-hover:scale-110 transition-transform duration-500">
+        {/* CSS-Only Logo: 5-Box Star Concept */} 
+        <div className="relative w-8 h-8 hidden items-center justify-center group-hover:scale-110 transition-transform duration-500">
+        {/* <div className="relative w-8 h-8 flex items-center justify-center group-hover:scale-110 transition-transform duration-500"> */} {/* uncomment it to see this logo */}
             {/* The 5 "Tattvas" (Elements) represented as squares */}
             <div className="absolute w-2 h-2 bg-blue-500 rounded-sm -translate-y-3"></div> {/* Top */}
             <div className="absolute w-2 h-2 bg-blue-500 rounded-sm translate-x-3 -translate-y-1"></div> {/* Right Top */}
@@ -19,6 +20,7 @@ export default function NavBar() {
             {/* Center Glow */}
             <div className="absolute w-1 h-1 bg-white rounded-full shadow-[0_0_10px_rgba(59,130,246,0.8)]"></div>
         </div>
+        <img src="/logo.png" alt="Tattva Logo" className="w-10" />
         
         <span className="text-xl font-bold tracking-wider text-slate-100 group-hover:text-white transition-colors">
           TATTVA
