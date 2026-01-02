@@ -50,7 +50,7 @@ export default function Home() {
         <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-green-500/20 to-transparent animate-pulse" style={{ animationDelay: "1s" }} />
       </div>
 
-      <main className="flex-1 w-full max-w-5xl mx-auto px-6 z-10 flex flex-col justify-center pb-24 pt-52">
+      <main className="flex-1 w-full max-w-5xl mx-auto px-6 z-10 flex flex-col justify-center pb-12 pt-50">
         
         {/* 1. IDLE STATE: Hero + Input */}
         {status === "IDLE" && (
