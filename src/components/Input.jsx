@@ -1,13 +1,65 @@
-import { useState, useRef } from "react";
-import { Camera, ImageUp, ArrowRight } from "lucide-react";
+import { useState, useRef, useEffect } from "react";
+import { Camera, ImageUp, ArrowRight, X, FileText, Mic, Check, Video, VideoOff, Square, RotateCw } from "lucide-react";
 
 export default function Input({ onAnalyze }) {
   const [text, setText] = useState("");
+  const [isDragging, setIsDragging] = useState(false);
+  const [uploadedImage, setUploadedImage] = useState(null);
+  const [isRecording, setIsRecording] = useState(false);
+  const [isListening, setIsListening] = useState(false);
+  const [isCameraOpen, setIsCameraOpen] = useState(false);
+  const [pasteSuccess, setPasteSuccess] = useState(false);
+  const [micPermission, setMicPermission] = useState('prompt');
+  const [cameraPermission, setCameraPermission] = useState('prompt');
+  const [transcript, setTranscript] = useState('');
+  const [interimText, setInterimText] = useState('');
+  const [facingMode, setFacingMode] = useState('user'); // Start with user camera for PC
+  
   const fileInputRef = useRef(null);
+  const videoRef = useRef(null);
+  const canvasRef = useRef(null);
+  const streamRef = useRef(null);
+  const recognitionRef = useRef(null);
+
+  // Check permissions on mount
+  useEffect(() => {
+    checkPermissions();
+    return () => {
+      // Cleanup streams and recognition
+      if (streamRef.current) {
+        streamRef.current.getTracks().forEach(track => track.stop());
+      }
+      if (recognitionRef.current) {
+        recognitionRef.current.stop();
+      }
+    };
+  }, []);
+
+  const checkPermissions = async () => {
+    try {
+      // Check microphone permission
+      const micResult = await navigator.permissions.query({ name: 'microphone' });
+      setMicPermission(micResult.state);
+      micResult.addEventListener('change', () => setMicPermission(micResult.state));
+
+      // Check camera permission
+      const cameraResult = await navigator.permissions.query({ name: 'camera' });
+      setCameraPermission(cameraResult.state);
+      cameraResult.addEventListener('change', () => setCameraPermission(cameraResult.state));
+    } catch (err) {
+      console.log('Permission API not supported');
+    }
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (text.trim()) onAnalyze(text, 'text');
+    if (text.trim() || uploadedImage) {
+      if (uploadedImage) {
+        onAnalyze(uploadedImage, 'image');
+      } else {
+        onAnalyze(text, 'text');
+      }
+    }
   };
 
   const handleFileChange = (e) => {
@@ -15,79 +67,515 @@ export default function Input({ onAnalyze }) {
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        // Send Base64 string (removing the "data:image..." prefix)
-        onAnalyze(reader.result.split(',')[1], 'image');
+        setUploadedImage(reader.result.split(',')[1]);
       };
       reader.readAsDataURL(file);
     }
   };
 
+  const handleDragOver = (e) => {
+    e.preventDefault();
+    setIsDragging(true);
+  };
+
+  const handleDragLeave = (e) => {
+    e.preventDefault();
+    setIsDragging(false);
+  };
+
+  const handleDrop = (e) => {
+    e.preventDefault();
+    setIsDragging(false);
+    
+    const file = e.dataTransfer.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setUploadedImage(reader.result.split(',')[1]);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const removeImage = () => {
+    setUploadedImage(null);
+  };
+
+  const handlePaste = async () => {
+    try {
+      const clipboardText = await navigator.clipboard.readText();
+      if (clipboardText.trim()) {
+        setText(clipboardText);
+        setPasteSuccess(true);
+        setTimeout(() => setPasteSuccess(false), 2000);
+      }
+    } catch (err) {
+      console.error('Failed to read clipboard contents: ', err);
+      // Fallback for older browsers
+      const textArea = document.createElement('textarea');
+      textArea.value = '';
+      document.body.appendChild(textArea);
+      textArea.focus();
+      textArea.select();
+      
+      try {
+        const successful = document.execCommand('paste');
+        if (successful && textArea.value.trim()) {
+          setText(textArea.value);
+          setPasteSuccess(true);
+          setTimeout(() => setPasteSuccess(false), 2000);
+        }
+      } catch (err) {
+        console.error('Fallback: Oops, unable to paste', err);
+      }
+      
+      document.body.removeChild(textArea);
+    }
+  };
+
+  // Enhanced Microphone functionality with real-time transcription
+  const startVoiceInput = async () => {
+    try {
+      // Request microphone permission
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      setMicPermission('granted');
+      
+      // Check if browser supports speech recognition
+      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+      
+      if (!SpeechRecognition) {
+        alert('Speech recognition is not supported in your browser. Please try Chrome or Edge.');
+        return;
+      }
+
+      const recognition = new SpeechRecognition();
+      recognitionRef.current = recognition;
+      
+      recognition.continuous = true;
+      recognition.interimResults = true;
+      recognition.lang = 'en-US';
+
+      recognition.onstart = () => {
+        setIsListening(true);
+        setTranscript('');
+        setInterimText('');
+      };
+
+      recognition.onresult = (event) => {
+        let finalTranscript = '';
+        let interimTranscript = '';
+
+        for (let i = event.resultIndex; i < event.results.length; i++) {
+          const transcript = event.results[i][0].transcript;
+          if (event.results[i].isFinal) {
+            finalTranscript += transcript + ' ';
+          } else {
+            interimTranscript += transcript;
+          }
+        }
+
+        // Update the transcript state
+        setTranscript(prev => prev + finalTranscript);
+        setInterimText(interimTranscript);
+        
+        // Update the text field with both final and interim results
+        setText(prev => {
+          // Get the current text without any interim text
+          const baseText = prev.replace(interimText, '');
+          return baseText + finalTranscript + interimTranscript;
+        });
+      };
+
+      recognition.onerror = (event) => {
+        console.error('Speech recognition error:', event.error);
+        setIsListening(false);
+        if (event.error === 'not-allowed') {
+          setMicPermission('denied');
+          alert('Microphone access denied. Please allow microphone access in your browser settings.');
+        }
+      };
+
+      recognition.onend = () => {
+        setIsListening(false);
+        setInterimText('');
+        stream.getTracks().forEach(track => track.stop());
+      };
+
+      recognition.start();
+      setIsRecording(true);
+
+    } catch (err) {
+      console.error('Error accessing microphone:', err);
+      setMicPermission('denied');
+      alert('Failed to access microphone. Please check your browser permissions.');
+    }
+  };
+
+  const stopVoiceInput = () => {
+    if (recognitionRef.current) {
+      recognitionRef.current.stop();
+    }
+    setIsRecording(false);
+    setIsListening(false);
+    setInterimText('');
+  };
+
+  // Enhanced Camera functionality for PC compatibility
+  const openCamera = async () => {
+    try {
+      // Detect if we're on mobile or desktop
+      const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+      
+      // Set appropriate constraints based on device
+      const constraints = {
+        video: {
+          width: { ideal: isMobile ? 1280 : 640 },
+          height: { ideal: isMobile ? 720 : 480 },
+          facingMode: isMobile ? 'environment' : 'user', // Use back camera on mobile, front on desktop
+        }
+      };
+      
+      // Request camera permission
+      const stream = await navigator.mediaDevices.getUserMedia(constraints);
+      
+      setCameraPermission('granted');
+      streamRef.current = stream;
+      setIsCameraOpen(true);
+      
+      if (videoRef.current) {
+        videoRef.current.srcObject = stream;
+        
+        // Add event listener to handle when video is ready
+        videoRef.current.onloadedmetadata = () => {
+          videoRef.current.play().catch(err => {
+            console.error('Error playing video:', err);
+          });
+        };
+      }
+    } catch (err) {
+      console.error('Error accessing camera:', err);
+      setCameraPermission('denied');
+      alert('Failed to access camera. Please check your browser permissions.');
+    }
+  };
+
+  const closeCamera = () => {
+    if (streamRef.current) {
+      streamRef.current.getTracks().forEach(track => track.stop());
+      streamRef.current = null;
+    }
+    setIsCameraOpen(false);
+  };
+
+  // Function to switch between front and back camera
+  const switchCamera = async () => {
+    const newFacingMode = facingMode === 'environment' ? 'user' : 'environment';
+    setFacingMode(newFacingMode);
+    
+    // Close current stream
+    if (streamRef.current) {
+      streamRef.current.getTracks().forEach(track => track.stop());
+    }
+    
+    // Open camera with new facing mode
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ 
+        video: { 
+          facingMode: newFacingMode,
+          width: { ideal: 1280 },
+          height: { ideal: 720 }
+        } 
+      });
+      
+      streamRef.current = stream;
+      if (videoRef.current) {
+        videoRef.current.srcObject = stream;
+      }
+    } catch (err) {
+      console.error('Error switching camera:', err);
+      // Revert to previous mode if switch fails
+      setFacingMode(facingMode);
+    }
+  };
+
+  const capturePhoto = () => {
+    if (videoRef.current && canvasRef.current) {
+      const video = videoRef.current;
+      const canvas = canvasRef.current;
+      const context = canvas.getContext('2d');
+      
+      // Set canvas dimensions to match video
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoHeight;
+      
+      // Draw the current video frame to canvas
+      context.drawImage(video, 0, 0);
+      
+      // Convert to base64 with high quality
+      const imageData = canvas.toDataURL('image/jpeg', 0.95);
+      setUploadedImage(imageData.split(',')[1]);
+      closeCamera();
+    }
+  };
+
   return (
-    <div className="w-full max-w-2xl mx-auto animate-fade-in-up">
+    <div className="w-full max-w-4xl mx-auto">
       <form 
         onSubmit={handleSubmit}
-        className="relative flex items-end gap-2 bg-gray-900/80 border border-slate-700/50 p-3 rounded-3xl shadow-2xl focus-within:border-blue-500/50 transition-all"
+        className={`relative overflow-hidden rounded-3xl shadow-2xl transition-all duration-500 ${
+          isDragging ? 'border-[#bfff00] bg-[#bfff00]/5' : 'border-gray-800 bg-black/40'
+        } border backdrop-blur-xl`}
+        onDragOver={handleDragOver}
+        onDragLeave={handleDragLeave}
+        onDrop={handleDrop}
       >
-        <input 
-          type="file" 
-          ref={fileInputRef} 
-          accept="image/*" 
-          className="hidden" 
-          onChange={handleFileChange}
-        />
+        {uploadedImage ? (
+          // Enhanced Image Preview State
+          <div className="p-6">
+            <div className="relative">
+              <img 
+                src={`data:image/jpeg;base64,${uploadedImage}`} 
+                alt="Uploaded" 
+                className="w-full h-80 object-cover rounded-2xl shadow-xl"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent rounded-2xl" />
+              <button
+                type="button"
+                onClick={removeImage}
+                className="absolute top-4 right-4 p-2 rounded-full bg-black/60 backdrop-blur-md border border-gray-700 text-white hover:bg-red-500/20 hover:border-red-500/50 transition-all"
+              >
+                <X size={18} />
+              </button>
+              <div className="absolute bottom-4 left-4 right-4">
+                <p className="text-white text-sm font-medium">Image uploaded successfully</p>
+                <p className="text-gray-300 text-xs">Click "Analyze Image" to process</p>
+              </div>
+            </div>
+            
+            <button
+              type="submit"
+              className="mt-6 w-full py-4 px-6 rounded-2xl bg-gradient-to-r from-[#bfff00] to-[#D3FD50] text-black font-bold shadow-lg hover:shadow-[#bfff00]/25 transition-all duration-300 flex items-center justify-center space-x-2 group"
+            >
+              <span>Analyze Image</span>
+              <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+            </button>
+          </div>
+        ) : (
+          // Enhanced Text Input State
+          <div className="p-6">
+            <div className="flex items-end gap-3 pb-3">
+              <input 
+                type="file" 
+                ref={fileInputRef} 
+                accept="image/*" 
+                className="hidden" 
+                onChange={handleFileChange}
+              />
 
-        {/* LEFT: Action Buttons */}
-        <div className="flex items-center gap-1 pb-1 pl-1">
-          <button 
-            type="button"
-            onClick={() => fileInputRef.current.click()}
-            className="p-2 text-slate-400 hover:text-blue-400 hover:bg-slate-800 rounded-full transition-colors"
-            title="Upload Image"
-          >
-            <ImageUp size={20} />
-          </button>
-          
-          <button 
-            type="button"
-            className="p-2 text-slate-400 hover:text-blue-400 hover:bg-slate-800 rounded-full transition-colors"
-            title="Use Camera (Coming Soon)"
-          >
-            <Camera size={20} />
-          </button>
-        </div>
+              {/* LEFT: Action Buttons */}
+              <div className="flex items-center gap-1">
+                <button 
+                  type="button"
+                  onClick={() => fileInputRef.current.click()}
+                  className="p-3 text-gray-400 hover:text-[#bfff00] hover:bg-gray-800/60 rounded-full transition-all duration-300 group"
+                  title="Upload Image"
+                >
+                  <ImageUp size={20} className="group-hover:scale-110 transition-transform" />
+                </button>
+                
+                <button 
+                  type="button"
+                  onClick={isRecording ? stopVoiceInput : startVoiceInput}
+                  className={`p-3 ${
+                    isRecording || isListening 
+                      ? 'text-red-500 animate-pulse' 
+                      : micPermission === 'denied' 
+                        ? 'text-red-400' 
+                        : 'text-gray-400 hover:text-[#bfff00]'
+                  } hover:bg-gray-800/60 rounded-full transition-all duration-300 group`}
+                  title={micPermission === 'denied' ? 'Microphone access denied' : 'Voice Input'}
+                >
+                  <Mic size={20} className="group-hover:scale-110 transition-transform" />
+                </button>
+                
+                <button 
+                  type="button"
+                  onClick={openCamera}
+                  className={`p-3 ${
+                    cameraPermission === 'denied' 
+                      ? 'text-red-400' 
+                      : 'text-gray-400 hover:text-[#bfff00]'
+                  } hover:bg-gray-800/60 rounded-full transition-all duration-300 group`}
+                  title={cameraPermission === 'denied' ? 'Camera access denied' : 'Use Camera'}
+                >
+                  <Camera size={20} className="group-hover:scale-110 transition-transform" />
+                </button>
+              </div>
 
-        {/* CENTER: Text Area */}
-        <textarea
-          value={text}
-          onChange={(e) => setText(e.target.value)}
-          onKeyDown={(e) => {
-            if (e.key === 'Enter' && !e.shiftKey) {
-              e.preventDefault();
-              handleSubmit(e);
-            }
-          }}
-          placeholder="Scan a label or paste ingredients..."
-          className="w-full bg-transparent border-none text-slate-100 placeholder:text-slate-500 focus:ring-0 resize-none py-3 max-h-32 min-h-[50px] scrollbar-hide"
-          rows={1}
-        />
+              {/* CENTER: Text Area */}
+              <div className="flex-1 relative">
+                <textarea
+                  value={text}
+                  onChange={(e) => setText(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' && !e.shiftKey) {
+                      e.preventDefault();
+                      handleSubmit(e);
+                    }
+                  }}
+                  placeholder="Scan a label or paste ingredients..."
+                  className="w-full bg-transparent border-none text-white placeholder:text-gray-600 focus:ring-0 resize-none py-3 max-h-32 min-h-[60px] scrollbar-hide text-lg pr-12"
+                  rows={1}
+                />
+                <div className="absolute bottom-3 right-3 text-xs text-gray-600">
+                  {text.length}/500
+                </div>
+                
+                {/* Enhanced Voice transcription indicator */}
+                {isListening && (
+                  <div className="absolute -top-8 left-0 text-xs text-[#bfff00] flex items-center gap-1">
+                    <div className="w-2 h-2 bg-[#bfff00] rounded-full animate-pulse" />
+                    Listening...
+                    {interimText && (
+                      <span className="text-gray-400 italic">"{interimText}"</span>
+                    )}
+                  </div>
+                )}
+              </div>
 
-        {/* RIGHT: Submit Button */}
-        <button 
-          type="submit"
-          disabled={!text.trim()}
-          className={`p-2.5 rounded-full mb-1 transition-all ${
-            text.trim() 
-              ? "bg-blue-600 text-white hover:bg-blue-500 shadow-lg" 
-              : "bg-slate-800 text-slate-600 cursor-not-allowed"
-          }`}
-        >
-          <ArrowRight size={18} />
-        </button>
+              {/* RIGHT: Submit Button */}
+              <button 
+                type="submit"
+                disabled={!text.trim()}
+                className={`p-3 rounded-full transition-all duration-300 ${
+                  text.trim() 
+                    ? "bg-gradient-to-r from-[#bfff00] to-[#D3FD50] text-black shadow-lg hover:shadow-[#bfff00]/25 hover:scale-105" 
+                    : "bg-gray-800 text-gray-600 cursor-not-allowed"
+                }`}
+              >
+                <ArrowRight size={18} />
+              </button>
+            </div>
+            
+            {/* Quick Actions */}
+            <div className="flex items-center gap-2 pt-2">
+              <button 
+                type="button"
+                onClick={handlePaste}
+                className="text-xs text-gray-500 hover:text-[#bfff00] transition-colors flex items-center gap-1 group"
+              >
+                {pasteSuccess ? (
+                  <>
+                    <Check size={14} className="text-green-400" />
+                    <span className="text-green-400">Pasted!</span>
+                  </>
+                ) : (
+                  <>
+                    <FileText size={14} className="group-hover:scale-110 transition-transform" />
+                    <span>Paste ingredients</span>
+                  </>
+                )}
+              </button>
+              <span className="text-gray-700">•</span>
+              <button 
+                type="button"
+                onClick={() => fileInputRef.current.click()}
+                className="text-xs text-gray-500 hover:text-[#bfff00] transition-colors flex items-center gap-1 group"
+              >
+                <ImageUp size={14} className="group-hover:scale-110 transition-transform" />
+                <span>Upload photo</span>
+              </button>
+            </div>
+          </div>
+        )}
       </form>
 
-      <p className="text-center text-xs text-slate-600 mt-4">
-        Tattva AI can make mistakes. Check important info.
-      </p>
+      {/* Enhanced Camera Modal */}
+      {isCameraOpen && (
+        <div className="fixed inset-0 bg-black/90 backdrop-blur-lg z-50 flex items-center justify-center p-4">
+          <div className="relative max-w-4xl w-full">
+            {/* Close button */}
+            <button
+              onClick={closeCamera}
+              className="absolute -top-12 right-0 p-2 text-gray-400 hover:text-white transition-colors z-10"
+            >
+              <X size={24} />
+            </button>
+            
+            {/* Video preview with proper sizing */}
+            <div className="relative bg-black rounded-2xl overflow-hidden">
+              <video
+                ref={videoRef}
+                autoPlay
+                playsInline
+                muted
+                className="w-full h-auto max-h-[70vh] object-contain"
+              />
+              
+              {/* Camera info */}
+              <div className="absolute top-4 left-4 bg-black/60 backdrop-blur-md px-3 py-2 rounded-lg">
+                <p className="text-white text-xs">
+                  {facingMode === 'environment' ? '📷 Back Camera' : '🤳 Front Camera'}
+                </p>
+              </div>
+              
+              {/* Controls overlay */}
+              <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/80 to-transparent">
+                <div className="flex items-center justify-center gap-4">
+                  {/* Switch camera button */}
+                  <button
+                    onClick={switchCamera}
+                    className="p-3 bg-white/20 backdrop-blur-md rounded-full hover:bg-white/30 transition-colors"
+                  >
+                    <RotateCw size={20} className="text-white" />
+                  </button>
+                  
+                  {/* Capture button */}
+                  <button
+                    onClick={capturePhoto}
+                    className="p-4 bg-white rounded-full hover:bg-gray-200 transition-all duration-300 group hover:scale-110"
+                  >
+                    <Camera size={24} className="text-black group-hover:scale-110 transition-transform" />
+                  </button>
+                  
+                  {/* Cancel button */}
+                  <button
+                    onClick={closeCamera}
+                    className="p-3 bg-red-500/80 backdrop-blur-md rounded-full hover:bg-red-600 transition-colors"
+                  >
+                    <VideoOff size={20} className="text-white" />
+                  </button>
+                </div>
+                <p className="text-center text-white text-sm mt-4">
+                  Position the label in the frame and tap the camera button
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Hidden canvas for photo capture */}
+      <canvas ref={canvasRef} className="hidden" />
+
+      {/* Enhanced Drag Overlay */}
+      {isDragging && (
+        <div className="absolute inset-0 flex items-center justify-center bg-black/80 backdrop-blur-md rounded-3xl border-2 border-dashed border-[#bfff00] z-10">
+          <div className="text-center space-y-4 p-8">
+            <div className="p-4 rounded-full bg-[#bfff00]/10 border border-[#bfff00]/20 mx-auto w-fit">
+              <ImageUp className="w-12 h-12 text-[#bfff00]" />
+            </div>
+            <p className="text-[#bfff00] font-medium text-lg">Drop your image here</p>
+            <p className="text-gray-400 text-sm">or click to browse</p>
+          </div>
+        </div>
+      )}
+
+      <div className="mt-6 text-center">
+        <p className="text-sm text-gray-500">
+          Tattva AI can make mistakes. Check important info.
+        </p>
+      </div>
     </div>
   );
 }

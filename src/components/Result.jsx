@@ -1,11 +1,10 @@
 import { useState } from "react";
-import { CheckCircle2, AlertTriangle, XCircle, ChevronDown, RefreshCcw, Info } from "lucide-react";
+import { CheckCircle2, AlertTriangle, XCircle, ChevronDown, RefreshCcw, Info, ArrowLeft, Shield, TrendingUp, AlertCircle } from "lucide-react";
 
 export default function Result({ data, onReset }) {
   const [showDetails, setShowDetails] = useState(false);
   
-  // ⚡ DESTRUCTURING THE NEW SCHEMA
-  // We handle potential missing data safely with default empty objects
+  // DESTRUCTURING THE NEW SCHEMA
   const { quick_result = {}, detailed_analysis = {} } = data;
   
   const { 
@@ -22,36 +21,47 @@ export default function Result({ data, onReset }) {
     uncertainty_and_limits
   } = detailed_analysis;
 
-  // --- LOGIC: Color Coding based on Recommendation ---
+  // ENHANCED LOGIC: Color Coding based on Recommendation
   const getStatusConfig = () => {
-    // Normalize to lowercase to be safe
     const rec = buy_guidance.recommendation?.toLowerCase() || "";
     
     if (rec.includes("buy")) {
       return { 
         icon: CheckCircle2, 
         color: "text-emerald-400", 
-        border: "border-emerald-500/20", 
-        bg: "bg-emerald-500/10",
-        badge: "bg-emerald-500/20 text-emerald-300"
+        bgColor: "bg-emerald-500/10",
+        borderColor: "border-emerald-500/20",
+        badgeColor: "bg-emerald-500/20 text-emerald-300",
+        gradient: "from-emerald-500/20 to-emerald-600/10",
+        glow: "shadow-emerald-500/20",
+        alertLevel: "low",
+        alertText: "Safe Choice"
       };
     }
     if (rec.includes("avoid") || rec.includes("skip")) {
       return { 
         icon: XCircle, 
-        color: "text-rose-400", 
-        border: "border-rose-500/20", 
-        bg: "bg-rose-500/10",
-        badge: "bg-rose-500/20 text-rose-300"
+        color: "text-red-500", 
+        bgColor: "bg-red-500/10",
+        borderColor: "border-red-500/20",
+        badgeColor: "bg-red-500/20 text-red-300",
+        gradient: "from-red-500/20 to-red-600/10",
+        glow: "shadow-red-500/20",
+        alertLevel: "high",
+        alertText: "Avoid"
       };
     }
-    // Default / Caution
+    // Default / Caution - Using orange instead of yellow
     return { 
-      icon: AlertTriangle, 
-      color: "text-amber-400", 
-      border: "border-amber-500/20", 
-      bg: "bg-amber-500/10",
-      badge: "bg-amber-500/20 text-amber-300"
+      icon: AlertCircle, 
+      color: "text-orange-400", 
+      bgColor: "bg-orange-500/10",
+      borderColor: "border-orange-500/20",
+      badgeColor: "bg-orange-500/20 text-orange-300",
+      gradient: "from-orange-500/20 to-orange-600/10",
+      glow: "shadow-orange-500/20",
+      alertLevel: "medium",
+      alertText: "Use Caution"
     };
   };
 
@@ -59,39 +69,68 @@ export default function Result({ data, onReset }) {
   const StatusIcon = status.icon;
 
   return (
-    <div className="w-full max-w-2xl mx-auto space-y-6 animate-in slide-in-from-bottom-4 duration-700">
+    <div className="w-full max-w-5xl mx-auto space-y-8 animate-in slide-in-from-bottom-4 duration-700">
       
-      {/* 🟢 LAYER 1: THE QUICK RESULT CARD */}
-      <div className={`rounded-3xl border ${status.border} bg-slate-900/50 overflow-hidden shadow-2xl`}>
+      {/* Enhanced Back Button */}
+      <button
+        onClick={onReset}
+        className="flex items-center space-x-2 text-gray-500 hover:text-white transition-colors duration-300 group"
+      >
+        <ArrowLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
+        <span>Scan Another Product</span>
+      </button>
+      
+      {/* LAYER 1: THE QUICK RESULT CARD */}
+      <div className={`rounded-3xl border ${status.borderColor} bg-black/40 backdrop-blur-xl overflow-hidden shadow-2xl ${status.glow}`}>
         
         {/* HEADER: The Verdict */}
-        <div className={`p-6 border-b ${status.border} ${status.bg} flex items-start gap-4`}>
-          <div className={`p-3 rounded-full ${status.badge} shrink-0`}>
-            <StatusIcon className="w-6 h-6" />
+        <div className={`relative p-8 border-b ${status.borderColor} bg-gradient-to-br ${status.gradient}`}>
+          {/* Background Glow Effect */}
+          <div className="absolute inset-0 bg-gradient-to-br from-transparent to-black/40" />
+          
+          {/* Alert Level Badge */}
+          <div className="absolute top-4 right-4">
+            <div className={`px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider ${status.badgeColor} flex items-center gap-1`}>
+              <div className={`w-2 h-2 rounded-full ${status.alertLevel === 'high' ? 'bg-red-400' : status.alertLevel === 'medium' ? 'bg-orange-400' : 'bg-emerald-400'} animate-pulse`} />
+              {status.alertText}
+            </div>
           </div>
-          <div className="flex-1">
-            <h2 className="text-xl md:text-2xl font-bold text-slate-100 leading-tight mb-2">
-              {headline}
-            </h2>
-            
-            {/* Metadata Tags */}
-            <div className="flex flex-wrap items-center gap-2">
-              <span className={`text-[10px] uppercase tracking-wider font-bold px-2 py-1 rounded-md ${status.badge}`}>
-                {buy_guidance.recommendation || "ANALYSIS"}
-              </span>
-              <span className="text-xs text-slate-400 flex items-center gap-1">
-                <Info size={12} /> Confidence: <span className="text-slate-200">{decision_confidence}</span>
-              </span>
+          
+          <div className="relative flex items-start gap-6">
+            <div className={`p-4 rounded-2xl ${status.badgeColor} shadow-lg`}>
+              <StatusIcon className="w-8 h-8" />
+            </div>
+            <div className="flex-1">
+              <h2 className="text-3xl md:text-4xl font-bold text-white leading-tight mb-4">
+                {headline}
+              </h2>
+              
+              {/* Enhanced Metadata Tags */}
+              <div className="flex flex-wrap items-center gap-3">
+                <span className={`text-xs uppercase tracking-wider font-bold px-3 py-1.5 rounded-lg ${status.badgeColor}`}>
+                  {buy_guidance.recommendation || "ANALYSIS"}
+                </span>
+                <span className="text-sm text-gray-300 flex items-center gap-2">
+                  <Info size={16} /> Confidence: <span className="text-white font-medium">{decision_confidence}</span>
+                </span>
+                <span className="text-sm text-gray-300 flex items-center gap-2">
+                  <Shield size={16} /> <span className="text-white font-medium">AI Verified</span>
+                </span>
+              </div>
             </div>
           </div>
         </div>
 
-        {/* BODY: The 6-8 Summary Bullets */}
-        <div className="p-6 bg-slate-900/40">
-          <ul className="space-y-4">
+        {/* BODY: The Summary Points */}
+        <div className="p-8">
+          <div className="flex items-center gap-2 mb-6">
+            <TrendingUp className="w-5 h-5 text-[#bfff00]" />
+            <h3 className="text-xl font-semibold text-white">Key Findings</h3>
+          </div>
+          <ul className="space-y-5">
             {summary_points.map((point, i) => (
-              <li key={i} className="flex items-start gap-3 text-slate-300 text-sm md:text-base leading-relaxed">
-                <span className={`mt-1.5 w-1.5 h-1.5 rounded-full ${status.color} shrink-0`} />
+              <li key={i} className="flex items-start gap-4 text-gray-300 text-lg leading-relaxed">
+                <span className={`mt-2 w-2 h-2 rounded-full shrink-0 ${status.color}`} />
                 <span>{point}</span>
               </li>
             ))}
@@ -99,53 +138,58 @@ export default function Result({ data, onReset }) {
         </div>
 
         {/* FOOTER: Toggle Details */}
-        <div className="p-4 bg-slate-950/30 border-t border-slate-800/50">
+        <div className="p-8 bg-black/20 border-t border-gray-800/50">
           {!showDetails ? (
             <button 
               onClick={() => setShowDetails(true)}
-              className="w-full py-3 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-xl text-sm font-medium transition-all flex items-center justify-center gap-2 group"
+              className="w-full py-4 bg-gradient-to-r from-[#bfff00]/10 to-[#D3FD50]/10 hover:from-[#bfff00]/20 hover:to-[#D3FD50]/20 border border-[#bfff00]/20 hover:border-[#bfff00]/40 text-white rounded-2xl text-lg font-medium transition-all duration-300 flex items-center justify-center gap-2 group"
             >
               See detailed analysis 
-              <ChevronDown size={16} className="group-hover:translate-y-0.5 transition-transform" />
+              <ChevronDown size={20} className="group-hover:translate-y-0.5 transition-transform" />
             </button>
           ) : (
-            // 🟡 LAYER 2: DEEP DIVE (Revealed)
+            // LAYER 2: DEEP DIVE (Revealed)
             <div className="pt-2 animate-in fade-in space-y-8">
                
                {/* Section A: Intent */}
-               <div className="p-4 rounded-xl bg-blue-500/5 border border-blue-500/10">
-                 <h3 className="text-[10px] font-bold text-blue-400 uppercase tracking-widest mb-1">Inferred Intent</h3>
-                 <p className="text-sm text-slate-300 italic">"{inferred_intent}"</p>
+               <div className="p-6 rounded-2xl bg-[#bfff00]/5 border border-[#bfff00]/10">
+                 <h3 className="text-sm font-bold text-[#bfff00] uppercase tracking-widest mb-3">Inferred Intent</h3>
+                 <p className="text-lg text-gray-300 italic">"{inferred_intent}"</p>
                </div>
 
                {/* Section B: Key Ingredients */}
-               <div className="space-y-3">
-                  <h3 className="text-xs font-bold text-slate-500 uppercase tracking-widest pl-1">Key Drivers</h3>
+               <div className="space-y-4">
+                  <div className="flex items-center gap-2">
+                    <Shield className="w-5 h-5 text-[#bfff00]" />
+                    <h3 className="text-lg font-bold text-white uppercase tracking-wider">Key Drivers</h3>
+                  </div>
                   {key_ingredients_that_matter.map((ing, i) => (
-                    <div key={i} className="p-4 rounded-xl bg-slate-800/40 border border-slate-700/50 hover:border-slate-600 transition-colors">
-                      <div className="flex justify-between items-center mb-1">
-                        <span className="font-semibold text-slate-200">{ing.name}</span>
-                        <span className={`text-[10px] font-bold px-2 py-0.5 rounded border 
-                          ${ing.risk_level?.toLowerCase().includes('high') ? 'border-rose-500/30 text-rose-400 bg-rose-500/10' : 
-                            ing.risk_level?.toLowerCase().includes('med') ? 'border-amber-500/30 text-amber-400 bg-amber-500/10' : 
-                            'border-emerald-500/30 text-emerald-400 bg-emerald-500/10'}`}>
+                    <div key={i} className="p-6 rounded-2xl bg-black/40 border border-gray-800 hover:border-[#bfff00]/30 transition-all duration-300">
+                      <div className="flex justify-between items-center mb-3">
+                        <span className="text-xl font-semibold text-white">{ing.name}</span>
+                        <span className={`text-sm font-bold px-3 py-1 rounded-lg border 
+                          ${ing.risk_level?.toLowerCase().includes('high') 
+                            ? 'border-red-500/30 text-red-400 bg-red-500/10' 
+                            : ing.risk_level?.toLowerCase().includes('med') 
+                              ? 'border-orange-500/30 text-orange-400 bg-orange-500/10' 
+                              : 'border-emerald-500/30 text-emerald-400 bg-emerald-500/10'}`}>
                           {ing.risk_level?.toUpperCase()}
                         </span>
                       </div>
-                      <p className="text-xs text-slate-400 leading-relaxed">{ing.reason}</p>
+                      <p className="text-gray-300 leading-relaxed">{ing.reason}</p>
                     </div>
                   ))}
                </div>
 
                {/* Section C: Trade-offs & Science */}
-               <div className="grid gap-4 md:grid-cols-2">
-                 <div className="p-4 rounded-xl bg-slate-800/20 border border-slate-800">
-                    <h3 className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-2">The Trade-off</h3>
-                    <p className="text-xs text-slate-400 leading-relaxed">{tradeoffs_and_context}</p>
+               <div className="grid gap-6 md:grid-cols-2">
+                 <div className="p-6 rounded-2xl bg-black/40 border border-gray-800">
+                    <h3 className="text-sm font-bold text-gray-400 uppercase tracking-widest mb-3">The Trade-off</h3>
+                    <p className="text-gray-300 leading-relaxed">{tradeoffs_and_context}</p>
                  </div>
-                 <div className="p-4 rounded-xl bg-slate-800/20 border border-slate-800">
-                    <h3 className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-2">Scientific Consensus</h3>
-                    <p className="text-xs text-slate-400 leading-relaxed">{uncertainty_and_limits}</p>
+                 <div className="p-6 rounded-2xl bg-black/40 border border-gray-800">
+                    <h3 className="text-sm font-bold text-gray-400 uppercase tracking-widest mb-3">Scientific Consensus</h3>
+                    <p className="text-gray-300 leading-relaxed">{uncertainty_and_limits}</p>
                  </div>
                </div>
 
@@ -153,14 +197,6 @@ export default function Result({ data, onReset }) {
           )}
         </div>
       </div>
-
-      {/* RESET ACTION */}
-      <button 
-        onClick={onReset}
-        className="w-full py-4 text-slate-500 hover:text-white flex items-center justify-center gap-2 transition-colors opacity-70 hover:opacity-100"
-      >
-        <RefreshCcw size={16} /> Scan Another Product
-      </button>
 
     </div>
   );

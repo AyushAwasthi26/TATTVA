@@ -29,31 +29,67 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-black text-slate-100 font-sans flex flex-col relative overflow-hidden">
+    <div className="min-h-screen bg-black text-white font-sans flex flex-col relative overflow-hidden">
       
       <Navbar />
 
-      {/* Background Glow */}
-      <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-blue-900/20 rounded-full blur-[120px] -z-0 pointer-events-none" />
+      {/* Background Elements */}
+      <div className="fixed top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
+        {/* Green Gradient Glow */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-to-br from-green-500/10 to-emerald-500/5 rounded-full blur-[150px]" />
+        
+        {/* Simple Grid Pattern - Using CSS instead of SVG */}
+        <div className="absolute inset-0 opacity-5" style={{
+          backgroundImage: `linear-gradient(to right, #10b981 1px, transparent 1px),
+                           linear-gradient(to bottom, #10b981 1px, transparent 1px)`,
+          backgroundSize: '60px 60px'
+        }} />
+        
+        {/* Subtle Animated Lines */}
+        <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-green-500/20 to-transparent animate-pulse" />
+        <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-green-500/20 to-transparent animate-pulse" style={{ animationDelay: "1s" }} />
+      </div>
 
-      <main className="flex-1 w-full max-w-3xl mx-auto px-4 z-10 flex flex-col justify-center pb-20 pt-20">
+      <main className="flex-1 w-full max-w-5xl mx-auto px-6 z-10 flex flex-col justify-center pb-24 pt-32">
         
         {/* 1. IDLE STATE: Hero + Input */}
         {status === "IDLE" && (
-          <div className="animate-fade-in-up space-y-10">
-            <div className="text-center space-y-6">
-              <div className="inline-flex p-3 rounded-2xl bg-slate-900 border border-slate-800 shadow-xl">
-                <Sparkles className="w-6 h-6 text-blue-400" />
+          <div className="animate-fade-in-up space-y-16">
+            <div className="text-center space-y-8">
+              {/* <div className="inline-flex p-4 rounded-2xl bg-black/60 backdrop-blur-xl border border-green-500/20 shadow-2xl hover:shadow-green-500/10 transition-all duration-500 hover:scale-105">
+                <Sparkles className="w-8 h-8 text-[#bfff00]" />
+              </div> */}
+              
+              <div className="space-y-4">
+                <h1 className="text-6xl md:text-7xl font-bold tracking-tight leading-tight space-x-5">
+                  <span className="text-transparent bg-clip-text bg-gradient-to-b from-white to-gray-500">
+                    Reveal the
+                  </span>
+                  <span className="text-transparent bg-clip-text bg-gradient-to-b from-[#bfff00] to-green-600">
+                    Reality.
+                  </span>
+                </h1>
+                
+                <p className="text-xl md:text-2xl text-gray-400 font-light max-w-2xl mx-auto leading-relaxed">
+                  AI-native reasoning for your food labels.
+                </p>
               </div>
-              <h1 className="text-5xl font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-b from-white to-slate-500">
-                Reveal the Reality.
-              </h1>
-              <p className="text-slate-400 text-lg">
-                AI-native reasoning for your food labels.
-              </p>
             </div>
             
             <Input onAnalyze={handleAnalyze} />
+            
+            {/* Feature Pills */}
+            <div className="flex flex-wrap justify-center gap-3 pt-4">
+              <div className="px-4 py-2 rounded-full bg-black/60 backdrop-blur-md border border-[#bfff00] text-sm text-gray-300">
+                Instant Analysis
+              </div>
+              <div className="px-4 py-2 rounded-full bg-black/60 backdrop-blur-md border border-[#bfff00] text-sm text-gray-300">
+                Science-Backed
+              </div>
+              <div className="px-4 py-2 rounded-full bg-black/60 backdrop-blur-md border border-[#bfff00] text-sm text-gray-300">
+                Privacy First
+              </div>
+            </div>
           </div>
         )}
 
