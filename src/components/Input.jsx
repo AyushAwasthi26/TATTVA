@@ -424,7 +424,7 @@ export default function Input({ onAnalyze }) {
                     }
                   }}
                   placeholder="Scan a label or paste ingredients..."
-                  className="w-full bg-transparent border-none text-white placeholder:text-gray-600 focus:ring-0 resize-none py-3 max-h-32 min-h-[60px] scrollbar-hide text-lg pr-12"
+                  className="w-full bg-transparent border-none text-white placeholder:text-gray-600 focus:ring-0 focus:outline-none resize-none py-3 px-4 max-h-32 min-h-[60px] scrollbar-hide text-lg rounded-2xl border border-gray-800 focus:border-gray-600 transition-all duration-300"
                   rows={1}
                 />
                 <div className="absolute bottom-3 right-3 text-xs text-gray-600">
