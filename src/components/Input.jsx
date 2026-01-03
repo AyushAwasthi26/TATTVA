@@ -14,6 +14,7 @@ export default function Input({ onAnalyze }) {
   const [transcript, setTranscript] = useState('');
   const [interimText, setInterimText] = useState('');
   const [facingMode, setFacingMode] = useState('user'); // Start with user camera for PC
+  const [isMobile, setIsMobile] = useState(false);
   
   const fileInputRef = useRef(null);
   const videoRef = useRef(null);
@@ -21,10 +22,17 @@ export default function Input({ onAnalyze }) {
   const streamRef = useRef(null);
   const recognitionRef = useRef(null);
 
-  // Check permissions on mount
+  // Check if mobile on mount and resize
   useEffect(() => {
-    checkPermissions();
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    
     return () => {
+      window.removeEventListener('resize', checkMobile);
       // Cleanup streams and recognition
       if (streamRef.current) {
         streamRef.current.getTracks().forEach(track => track.stop());
@@ -33,6 +41,11 @@ export default function Input({ onAnalyze }) {
         recognitionRef.current.stop();
       }
     };
+  }, []);
+
+  // Check permissions on mount
+  useEffect(() => {
+    checkPermissions();
   }, []);
 
   const checkPermissions = async () => {
@@ -224,14 +237,14 @@ export default function Input({ onAnalyze }) {
   const openCamera = async () => {
     try {
       // Detect if we're on mobile or desktop
-      const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+      const isMobileDevice = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
       
       // Set appropriate constraints based on device
       const constraints = {
         video: {
-          width: { ideal: isMobile ? 1280 : 640 },
-          height: { ideal: isMobile ? 720 : 480 },
-          facingMode: isMobile ? 'environment' : 'user', // Use back camera on mobile, front on desktop
+          width: { ideal: isMobileDevice ? 1280 : 640 },
+          height: { ideal: isMobileDevice ? 720 : 480 },
+          facingMode: isMobileDevice ? 'environment' : 'user', // Use back camera on mobile, front on desktop
         }
       };
       
@@ -363,129 +376,242 @@ export default function Input({ onAnalyze }) {
         ) : (
           // Enhanced Text Input State
           <div className="p-6">
-            <div className="flex items-end gap-3 pb-3">
-              <input 
-                type="file" 
-                ref={fileInputRef} 
-                accept="image/*" 
-                className="hidden" 
-                onChange={handleFileChange}
-              />
+            {/* Mobile Layout */}
+            {isMobile ? (
+              <div className="space-y-4">
+                {/* Action Buttons - Vertical Layout for Mobile */}
+                <div className="flex justify-center gap-4 py-2">
+                  <button 
+                    type="button"
+                    onClick={() => fileInputRef.current.click()}
+                    className="flex flex-col items-center p-3 text-gray-400 hover:text-[#bfff00] hover:bg-gray-800/60 rounded-xl transition-all duration-300 group"
+                    title="Upload Image"
+                  >
+                    <ImageUp size={20} className="group-hover:scale-110 transition-transform" />
+                    <span className="text-xs mt-1">Upload</span>
+                  </button>
+                  
+                  <button 
+                    type="button"
+                    onClick={isRecording ? stopVoiceInput : startVoiceInput}
+                    className={`flex flex-col items-center p-3 ${
+                      isRecording || isListening 
+                        ? 'text-red-500 animate-pulse' 
+                        : micPermission === 'denied' 
+                          ? 'text-red-400' 
+                          : 'text-gray-400 hover:text-[#bfff00]'
+                    } hover:bg-gray-800/60 rounded-xl transition-all duration-300 group`}
+                    title={micPermission === 'denied' ? 'Microphone access denied' : 'Voice Input'}
+                  >
+                    <Mic size={20} className="group-hover:scale-110 transition-transform" />
+                    <span className="text-xs mt-1">Voice</span>
+                  </button>
+                  
+                  <button 
+                    type="button"
+                    onClick={openCamera}
+                    className={`flex flex-col items-center p-3 ${
+                      cameraPermission === 'denied' 
+                        ? 'text-red-400' 
+                        : 'text-gray-400 hover:text-[#bfff00]'
+                    } hover:bg-gray-800/60 rounded-xl transition-all duration-300 group`}
+                    title={cameraPermission === 'denied' ? 'Camera access denied' : 'Use Camera'}
+                  >
+                    <Camera size={20} className="group-hover:scale-110 transition-transform" />
+                    <span className="text-xs mt-1">Camera</span>
+                  </button>
+                </div>
 
-              {/* LEFT: Action Buttons */}
-              <div className="flex items-center gap-1">
+                {/* Text Area for Mobile */}
+                <div className="relative">
+                  <textarea
+                    value={text}
+                    onChange={(e) => setText(e.target.value)}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter' && !e.shiftKey) {
+                        e.preventDefault();
+                        handleSubmit(e);
+                      }
+                    }}
+                    placeholder="Scan a label or paste ingredients..."
+                    className="w-full bg-transparent border-none text-white placeholder:text-gray-600 focus:ring-0 focus:outline-none resize-none py-3 px-4 max-h-32 min-h-[60px] scrollbar-hide text-base rounded-2xl border border-gray-800 focus:border-gray-600 transition-all duration-300"
+                    rows={1}
+                  />
+                  
+                  {/* Enhanced Voice transcription indicator */}
+                  {isListening && (
+                    <div className="absolute -top-8 left-0 text-xs text-[#bfff00] flex items-center gap-1">
+                      <div className="w-2 h-2 bg-[#bfff00] rounded-full animate-pulse" />
+                      Listening...
+                      {interimText && (
+                        <span className="text-gray-400 italic">"{interimText}"</span>
+                      )}
+                    </div>
+                  )}
+                </div>
+
+                {/* Submit Button for Mobile */}
+                <button 
+                  type="submit"
+                  disabled={!text.trim()}
+                  className={`w-full py-3 px-6 rounded-2xl transition-all duration-300 ${
+                    text.trim() 
+                      ? "bg-gradient-to-r from-[#bfff00] to-[#D3FD50] text-black font-bold shadow-lg hover:shadow-[#bfff00]/25" 
+                      : "bg-gray-800 text-gray-600 cursor-not-allowed"
+                  }`}
+                >
+                  Analyze
+                </button>
+
+                {/* Quick Actions - Only Paste Ingredients for Mobile */}
+                <div className="flex justify-center pt-2">
+                  <button 
+                    type="button"
+                    onClick={handlePaste}
+                    className="text-sm text-gray-500 hover:text-[#bfff00] transition-colors flex items-center gap-1 group"
+                  >
+                    {pasteSuccess ? (
+                      <>
+                        <Check size={14} className="text-green-400" />
+                        <span className="text-green-400">Pasted!</span>
+                      </>
+                    ) : (
+                      <>
+                        <FileText size={14} className="group-hover:scale-110 transition-transform" />
+                        <span>Paste ingredients</span>
+                      </>
+                    )}
+                  </button>
+                </div>
+              </div>
+            ) : (
+              /* Desktop Layout */
+              <div className="flex items-end gap-3 pb-3">
+                <input 
+                  type="file" 
+                  ref={fileInputRef} 
+                  accept="image/*" 
+                  className="hidden" 
+                  onChange={handleFileChange}
+                />
+
+                {/* LEFT: Action Buttons */}
+                <div className="flex items-center gap-1">
+                  <button 
+                    type="button"
+                    onClick={() => fileInputRef.current.click()}
+                    className="p-3 text-gray-400 hover:text-[#bfff00] hover:bg-gray-800/60 rounded-full transition-all duration-300 group"
+                    title="Upload Image"
+                  >
+                    <ImageUp size={20} className="group-hover:scale-110 transition-transform" />
+                  </button>
+                  
+                  <button 
+                    type="button"
+                    onClick={isRecording ? stopVoiceInput : startVoiceInput}
+                    className={`p-3 ${
+                      isRecording || isListening 
+                        ? 'text-red-500 animate-pulse' 
+                        : micPermission === 'denied' 
+                          ? 'text-red-400' 
+                          : 'text-gray-400 hover:text-[#bfff00]'
+                    } hover:bg-gray-800/60 rounded-full transition-all duration-300 group`}
+                    title={micPermission === 'denied' ? 'Microphone access denied' : 'Voice Input'}
+                  >
+                    <Mic size={20} className="group-hover:scale-110 transition-transform" />
+                  </button>
+                  
+                  <button 
+                    type="button"
+                    onClick={openCamera}
+                    className={`p-3 ${
+                      cameraPermission === 'denied' 
+                        ? 'text-red-400' 
+                        : 'text-gray-400 hover:text-[#bfff00]'
+                    } hover:bg-gray-800/60 rounded-full transition-all duration-300 group`}
+                    title={cameraPermission === 'denied' ? 'Camera access denied' : 'Use Camera'}
+                  >
+                    <Camera size={20} className="group-hover:scale-110 transition-transform" />
+                  </button>
+                </div>
+
+                {/* CENTER: Text Area */}
+                <div className="flex-1 relative">
+                  <textarea
+                    value={text}
+                    onChange={(e) => setText(e.target.value)}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter' && !e.shiftKey) {
+                        e.preventDefault();
+                        handleSubmit(e);
+                      }
+                    }}
+                    placeholder="Scan a label or paste ingredients..."
+                    className="w-full bg-transparent border-none text-white placeholder:text-gray-600 focus:ring-0 focus:outline-none resize-none py-3 px-4 max-h-32 min-h-[60px] scrollbar-hide text-lg rounded-2xl border border-gray-800 focus:border-gray-600 transition-all duration-300"
+                    rows={1}
+                  />
+                  <div className="absolute bottom-3 right-3 text-xs text-gray-600">
+                    {text.length}/500
+                  </div>
+                  
+                  {/* Enhanced Voice transcription indicator */}
+                  {isListening && (
+                    <div className="absolute -top-8 left-0 text-xs text-[#bfff00] flex items-center gap-1">
+                      <div className="w-2 h-2 bg-[#bfff00] rounded-full animate-pulse" />
+                      Listening...
+                      {interimText && (
+                        <span className="text-gray-400 italic">"{interimText}"</span>
+                      )}
+                    </div>
+                  )}
+                </div>
+
+                {/* RIGHT: Submit Button */}
+                <button 
+                  type="submit"
+                  disabled={!text.trim()}
+                  className={`p-3 rounded-full transition-all duration-300 ${
+                    text.trim() 
+                      ? "bg-gradient-to-r from-[#bfff00] to-[#D3FD50] text-black shadow-lg hover:shadow-[#bfff00]/25 hover:scale-105" 
+                      : "bg-gray-800 text-gray-600 cursor-not-allowed"
+                  }`}
+                >
+                  <ArrowRight size={18} />
+                </button>
+              </div>
+            )}
+            
+            {/* Quick Actions - Desktop Only */}
+            {!isMobile && (
+              <div className="flex items-center gap-2 pt-2">
+                <button 
+                  type="button"
+                  onClick={handlePaste}
+                  className="text-xs text-gray-500 hover:text-[#bfff00] transition-colors flex items-center gap-1 group"
+                >
+                  {pasteSuccess ? (
+                    <>
+                      <Check size={14} className="text-green-400" />
+                      <span className="text-green-400">Pasted!</span>
+                    </>
+                  ) : (
+                    <>
+                      <FileText size={14} className="group-hover:scale-110 transition-transform" />
+                      <span>Paste ingredients</span>
+                    </>
+                  )}
+                </button>
+                <span className="text-gray-700">•</span>
                 <button 
                   type="button"
                   onClick={() => fileInputRef.current.click()}
-                  className="p-3 text-gray-400 hover:text-[#bfff00] hover:bg-gray-800/60 rounded-full transition-all duration-300 group"
-                  title="Upload Image"
+                  className="text-xs text-gray-500 hover:text-[#bfff00] transition-colors flex items-center gap-1 group"
                 >
-                  <ImageUp size={20} className="group-hover:scale-110 transition-transform" />
-                </button>
-                
-                <button 
-                  type="button"
-                  onClick={isRecording ? stopVoiceInput : startVoiceInput}
-                  className={`p-3 ${
-                    isRecording || isListening 
-                      ? 'text-red-500 animate-pulse' 
-                      : micPermission === 'denied' 
-                        ? 'text-red-400' 
-                        : 'text-gray-400 hover:text-[#bfff00]'
-                  } hover:bg-gray-800/60 rounded-full transition-all duration-300 group`}
-                  title={micPermission === 'denied' ? 'Microphone access denied' : 'Voice Input'}
-                >
-                  <Mic size={20} className="group-hover:scale-110 transition-transform" />
-                </button>
-                
-                <button 
-                  type="button"
-                  onClick={openCamera}
-                  className={`p-3 ${
-                    cameraPermission === 'denied' 
-                      ? 'text-red-400' 
-                      : 'text-gray-400 hover:text-[#bfff00]'
-                  } hover:bg-gray-800/60 rounded-full transition-all duration-300 group`}
-                  title={cameraPermission === 'denied' ? 'Camera access denied' : 'Use Camera'}
-                >
-                  <Camera size={20} className="group-hover:scale-110 transition-transform" />
+                  <ImageUp size={14} className="group-hover:scale-110 transition-transform" />
+                  <span>Upload photo</span>
                 </button>
               </div>
-
-              {/* CENTER: Text Area */}
-              <div className="flex-1 relative">
-                <textarea
-                  value={text}
-                  onChange={(e) => setText(e.target.value)}
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter' && !e.shiftKey) {
-                      e.preventDefault();
-                      handleSubmit(e);
-                    }
-                  }}
-                  placeholder="Scan a label or paste ingredients..."
-                  className="w-full bg-transparent border-none text-white placeholder:text-gray-600 focus:ring-0 focus:outline-none resize-none py-3 px-4 max-h-32 min-h-[60px] scrollbar-hide text-lg rounded-2xl border border-gray-800 focus:border-gray-600 transition-all duration-300"
-                  rows={1}
-                />
-                <div className="absolute bottom-3 right-3 text-xs text-gray-600">
-                  {text.length}/500
-                </div>
-                
-                {/* Enhanced Voice transcription indicator */}
-                {isListening && (
-                  <div className="absolute -top-8 left-0 text-xs text-[#bfff00] flex items-center gap-1">
-                    <div className="w-2 h-2 bg-[#bfff00] rounded-full animate-pulse" />
-                    Listening...
-                    {interimText && (
-                      <span className="text-gray-400 italic">"{interimText}"</span>
-                    )}
-                  </div>
-                )}
-              </div>
-
-              {/* RIGHT: Submit Button */}
-              <button 
-                type="submit"
-                disabled={!text.trim()}
-                className={`p-3 rounded-full transition-all duration-300 ${
-                  text.trim() 
-                    ? "bg-gradient-to-r from-[#bfff00] to-[#D3FD50] text-black shadow-lg hover:shadow-[#bfff00]/25 hover:scale-105" 
-                    : "bg-gray-800 text-gray-600 cursor-not-allowed"
-                }`}
-              >
-                <ArrowRight size={18} />
-              </button>
-            </div>
-            
-            {/* Quick Actions */}
-            <div className="flex items-center gap-2 pt-2">
-              <button 
-                type="button"
-                onClick={handlePaste}
-                className="text-xs text-gray-500 hover:text-[#bfff00] transition-colors flex items-center gap-1 group"
-              >
-                {pasteSuccess ? (
-                  <>
-                    <Check size={14} className="text-green-400" />
-                    <span className="text-green-400">Pasted!</span>
-                  </>
-                ) : (
-                  <>
-                    <FileText size={14} className="group-hover:scale-110 transition-transform" />
-                    <span>Paste ingredients</span>
-                  </>
-                )}
-              </button>
-              <span className="text-gray-700">•</span>
-              <button 
-                type="button"
-                onClick={() => fileInputRef.current.click()}
-                className="text-xs text-gray-500 hover:text-[#bfff00] transition-colors flex items-center gap-1 group"
-              >
-                <ImageUp size={14} className="group-hover:scale-110 transition-transform" />
-                <span>Upload photo</span>
-              </button>
-            </div>
+            )}
           </div>
         )}
       </form>
