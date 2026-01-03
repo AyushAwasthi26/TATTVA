@@ -119,7 +119,7 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 
 // 🔴 SAFETY CHECK: Ensure your API Key is in your .env file
 // If it's still hardcoded for testing, that's fine, but .env is better.
-const API_KEY = import.meta.env.VITE_GEMINI_API_KEY2 || "AIzaSy..."; 
+const API_KEY = import.meta.env.VITE_GEMINI_API_KEY || "AIzaSy..."; 
 
 const genAI = new GoogleGenerativeAI(API_KEY);
 

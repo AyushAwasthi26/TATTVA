@@ -81,7 +81,7 @@ export default function Home() {
               
               <div className="space-y-4">
                 {/* Desktop: One line heading, Mobile: Stacked with smaller font */}
-                <h1 className="hidden md:block text-5xl lg:text-7xl space-x-10 font-bold tracking-wider leading-none font-[font3]">
+                <h1 className="hidden md:block text-5xl lg:text-7xl space-x-10 font-bold tracking-wider leading-none font-[font5]">
                   <span className="text-transparent bg-clip-text bg-gradient-to-b from-white to-gray-500">
                     Reveal the
                   </span>
@@ -90,7 +90,7 @@ export default function Home() {
                   </span>
                 </h1>
                 
-                <h1 className="md:hidden text-4xl sm:text-4xl font-bold tracking-wider leading-tight font-[font3]">
+                <h1 className="md:hidden text-4xl sm:text-4xl font-bold tracking-wider leading-tight font-[font5]">
                   <span className="block text-transparent bg-clip-text bg-gradient-to-b from-white to-gray-500">
                     Reveal the
                   </span>

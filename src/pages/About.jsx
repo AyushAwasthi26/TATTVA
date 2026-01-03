@@ -66,13 +66,13 @@ export default function About() {
       name: "Aditya Srivastava",
       role: "Full Stack Developer",
       description: "Implemented the frontend components and user interface",
-      photo: "/m3.jpg"
+      photo: "/m4.jpg"
     },
     {
       name: "Ashish Shukla",
       role: "Backend & ML Engineer",
       description: "Worked on data processing and model optimization",
-      photo: "/m4.jpg"
+      photo: "/m3.jpg"
     }
   ];
 
@@ -164,7 +164,7 @@ export default function About() {
           }`}
         >
           <div className="space-y-6">
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-8xl font-bold tracking-wider leading-tight font-[font3]">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-wider leading-tight font-[font5]">
               <span className="block text-transparent bg-clip-text bg-gradient-to-b from-white to-gray-600">
                 The Truth Behind
               </span>
@@ -196,7 +196,7 @@ export default function About() {
           }`}
         >
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 font-[font3] tracking-widest">Meet The Team</h2>
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 font-[font5] tracking-widest">Meet The Team</h2>
             <div className="w-24 h-1 bg-gradient-to-r from-[#bfff00] to-[#D3FD50] mx-auto rounded-full" />
             <p className="text-gray-400 mt-4 max-w-2xl mx-auto px-4 font-[font1]">
               Four developers united by a vision to transform how people understand food through AI-native design
@@ -229,7 +229,7 @@ export default function About() {
                 </div>
                 
                 <div className="text-center space-y-1 md:space-y-2 px-1">
-                  <h3 className="text-sm md:text-lg lg:text-2xl font-bold text-white font-[font3] tracking-wider">{member.name}</h3>
+                  <h3 className="text-sm md:text-lg lg:text-2xl font-bold text-white font-[font5] tracking-wider">{member.name}</h3>
                   <p className="text-xs md:text-sm text-[#D3FD50] font-medium font-[font1]">{member.role}</p>
                   <p className="text-xs md:text-sm text-gray-400 leading-relaxed hidden md:block font-[font1]">{member.description}</p>
                 </div>
@@ -246,7 +246,7 @@ export default function About() {
           }`}
         >
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-5xl font-bold text-white mb-4 font-[font3] tracking-wider">How to Use Tattva</h2>
+            <h2 className="text-3xl md:text-5xl font-bold text-white mb-4 font-[font5] tracking-wider">How to Use Tattva</h2>
             <div className="w-24 h-1 bg-gradient-to-r from-[#bfff00] to-[#D3FD50] mx-auto rounded-full" />
             <p className="text-gray-400 mt-4 max-w-2xl mx-auto px-4 font-[font1]">
               Get instant insights about your food in four simple steps
@@ -277,9 +277,9 @@ export default function About() {
               </div>
               
               <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-[#bfff00]/20 border border-[#bfff00]/30 mt-6">
-                <span className="text-[#bfff00] font-bold font-[font3]">1</span>
+                <span className="text-[#bfff00] font-bold font-[font5]">1</span>
               </div>
-              <h3 className="text-xl font-semibold text-white mt-4 font-[font3]">Input Your Food Information</h3>
+              <h3 className="text-xl font-semibold text-white mt-4 font-[font5]">Input Your Food Information</h3>
               <p className="text-gray-400 mt-2 text-center max-w-lg font-[font1]">
                 Choose to upload a photo of the food label or paste the ingredients list directly.
               </p>
@@ -303,9 +303,9 @@ export default function About() {
               </div>
               
               <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-[#bfff00]/20 border border-[#bfff00]/30 mt-6">
-                <span className="text-[#bfff00] font-bold font-[font3]">2</span>
+                <span className="text-[#bfff00] font-bold font-[font5]">2</span>
               </div>
-              <h3 className="text-xl font-semibold text-white mt-4 font-[font3]">AI Processing</h3>
+              <h3 className="text-xl font-semibold text-white mt-4 font-[font5]">AI Processing</h3>
               <p className="text-gray-400 mt-2 text-center max-w-lg font-[font1]">
                 Our AI analyzes ingredients and cross-references scientific databases.
               </p>
@@ -341,9 +341,9 @@ export default function About() {
               </div>
               
               <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-[#bfff00]/20 border border-[#bfff00]/30 mt-6">
-                <span className="text-[#bfff00] font-bold font-[font3]">3</span>
+                <span className="text-[#bfff00] font-bold font-[font5]">3</span>
               </div>
-              <h3 className="text-xl font-semibold text-white mt-4 font-[font3]">Get Instant Results</h3>
+              <h3 className="text-xl font-semibold text-white mt-4 font-[font5]">Get Instant Results</h3>
               <p className="text-gray-400 mt-2 text-center max-w-lg font-[font1]">
                 Receive immediate insights with a clear verdict and key findings.
               </p>
@@ -366,9 +366,9 @@ export default function About() {
               </div>
               
               <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-[#bfff00]/20 border border-[#bfff00]/30 mt-6">
-                <span className="text-[#bfff00] font-bold font-[font3]">4</span>
+                <span className="text-[#bfff00] font-bold font-[font5]">4</span>
               </div>
-              <h3 className="text-xl font-semibold text-white mt-4 font-[font3]">Explore Detailed Analysis</h3>
+              <h3 className="text-xl font-semibold text-white mt-4 font-[font5]">Explore Detailed Analysis</h3>
               <p className="text-gray-400 mt-2 text-center max-w-lg font-[font1]">
                 Dive deeper with comprehensive ingredient analysis and personalized recommendations.
               </p>
@@ -394,7 +394,7 @@ export default function About() {
           }`}
         >
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-5xl font-bold text-white mb-4 font-[font3] tracking-wider">Our Approach</h2>
+            <h2 className="text-3xl md:text-5xl font-bold text-white mb-4 font-[font5] tracking-wider">Our Approach</h2>
             <div className="w-24 h-1 bg-gradient-to-r from-[#bfff00] to-[#D3FD50] mx-auto rounded-full" />
           </div>
           
@@ -414,7 +414,7 @@ export default function About() {
                   <div className="p-2 rounded-lg bg-[#bfff00]/10 text-[#bfff00] group-hover:scale-110 transition-transform">
                     {item.icon}
                   </div>
-                  <h3 className="text-lg font-bold text-white font-[font3]">{item.title}</h3>
+                  <h3 className="text-lg font-bold text-white font-[font5]">{item.title}</h3>
                 </div>
                 <p className="text-gray-400 text-sm leading-relaxed font-[font1]">{item.description}</p>
               </div>
@@ -430,7 +430,7 @@ export default function About() {
           }`}
         >
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-5xl font-bold text-white mb-4 font-[font3] tracking-wide">The Challenge We Addressed</h2>
+            <h2 className="text-3xl md:text-5xl font-bold text-white mb-4 font-[font5] tracking-wide">The Challenge We Addressed</h2>
             <div className="w-24 h-1 bg-gradient-to-r from-[#bfff00] to-[#D3FD50] mx-auto rounded-full" />
           </div>
           
@@ -439,7 +439,7 @@ export default function About() {
               <div className="p-3 rounded-xl bg-gray-800/60 w-fit mb-6 group-hover:bg-[#bfff00]/10 transition-colors">
                 <Shield className="w-8 h-8 text-[#D3FD50]" />
               </div>
-              <h3 className="text-xl md:text-2xl font-bold text-white mb-4 font-[font3]">The Information Gap</h3>
+              <h3 className="text-xl md:text-2xl font-bold text-white mb-4 font-[font5]">The Information Gap</h3>
               <p className="text-gray-400 text-sm md:text-lg leading-relaxed font-[font1]">
                 Food labels are optimized for regulatory compliance, not human understanding. "E471" tells you nothing about its effect on your gut health. This creates confusion exactly when consumers need clarity most.
               </p>
@@ -449,7 +449,7 @@ export default function About() {
               <div className="p-3 rounded-xl bg-gray-800/60 w-fit mb-6 group-hover:bg-[#bfff00]/10 transition-colors">
                 <Zap className="w-8 h-8 text-[#D3FD50]" />
               </div>
-              <h3 className="text-xl md:text-2xl font-bold text-white mb-4 font-[font3]">Cognitive Overload</h3>
+              <h3 className="text-xl md:text-2xl font-bold text-white mb-4 font-[font5]">Cognitive Overload</h3>
               <p className="text-gray-400 text-sm md:text-lg leading-relaxed font-[font1]">
                 Making healthy decisions requires memorizing hundreds of additives. That's cognitive work an AI should do for you. Traditional apps expect users to interpret chemical names and conflicting health advice.
               </p>
@@ -465,13 +465,13 @@ export default function About() {
           }`}
         >
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 font-[font3]">The Tattva Philosophy</h2>
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 font-[font5]">The Tattva Philosophy</h2>
             <div className="w-24 h-1 bg-gradient-to-r from-[#bfff00] to-[#D3FD50] mx-auto rounded-full" />
           </div>
           
           <div className="p-6 md:p-12 rounded-3xl bg-black/40 backdrop-blur-xl border border-gray-800">
             <p className="text-xl md:text-2xl lg:text-3xl text-center font-light text-white mb-12 px-4 font-[font1]">
-              <strong className="text-[#D3FD50] font-[font3]">AI as the Interface.</strong> We don't just act as a database lookup. Tattva acts as a reasoning engine that infers intent and explains only what matters.
+              <strong className="text-[#D3FD50] font-[font5]">AI as the Interface.</strong> We don't just act as a database lookup. Tattva acts as a reasoning engine that infers intent and explains only what matters.
             </p>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
@@ -483,7 +483,7 @@ export default function About() {
                     transitionDelay: `${visibleSections[4] ? index * 100 : 0}ms`
                   }}
                 >
-                  <h3 className="text-lg md:text-xl font-bold text-white mb-3 font-[font3]">{principle.title}</h3>
+                  <h3 className="text-lg md:text-xl font-bold text-white mb-3 font-[font5]">{principle.title}</h3>
                   <p className="text-gray-300 leading-relaxed text-sm md:text-base font-[font1]">{principle.description}</p>
                 </div>
               ))}
@@ -499,13 +499,13 @@ export default function About() {
           }`}
         >
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 font-[font3]">AI-Native Technology</h2>
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 font-[font5]">AI-Native Technology</h2>
             <div className="w-24 h-1 bg-gradient-to-r from-[#bfff00] to-[#D3FD50] mx-auto rounded-full" />
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
             <div className="p-6 rounded-2xl bg-black/40 backdrop-blur-xl border border-gray-800 transform transition-all duration-500 hover:-translate-y-2 hover:shadow-lg">
-              <h3 className="text-xl font-bold text-[#bfff00] mb-4 font-[font3]">Intent Inference</h3>
+              <h3 className="text-xl font-bold text-[#bfff00] mb-4 font-[font5]">Intent Inference</h3>
               <p className="text-gray-400 mb-4 text-sm md:text-base font-[font1]">
                 Our system automatically detects what you care about - allergens, additives, or general health - without any forms or filters.
               </p>
@@ -516,7 +516,7 @@ export default function About() {
             </div>
             
             <div className="p-6 rounded-2xl bg-black/40 backdrop-blur-xl border border-gray-800 transform transition-all duration-500 hover:-translate-y-2 hover:shadow-lg">
-              <h3 className="text-xl font-bold text-[#D3FD50] mb-4 font-[font3]">Reasoning Engine</h3>
+              <h3 className="text-xl font-bold text-[#D3FD50] mb-4 font-[font5]">Reasoning Engine</h3>
               <p className="text-gray-400 mb-4 text-sm md:text-base font-[font1]">
                 We explain trade-offs and uncertainty honestly, helping you make confident decisions rather than providing false certainty.
               </p>
@@ -527,7 +527,7 @@ export default function About() {
             </div>
             
             <div className="p-6 rounded-2xl bg-black/40 backdrop-blur-xl border border-gray-800 transform transition-all duration-500 hover:-translate-y-2 hover:shadow-lg">
-              <h3 className="text-xl font-bold text-green-400 mb-4 font-[font3]">Cognitive Ease</h3>
+              <h3 className="text-xl font-bold text-green-400 mb-4 font-[font5]">Cognitive Ease</h3>
               <p className="text-gray-400 mb-4 text-sm md:text-base font-[font1]">
                 We reduce mental effort at the moment of decision by providing clear, actionable insights rather than overwhelming data.
               </p>
@@ -551,7 +551,7 @@ export default function About() {
               <div className="inline-flex p-3 rounded-full bg-[#bfff00]/10 mb-4">
                 <Target className="w-8 h-8 text-[#bfff00]" />
               </div>
-              <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 font-[font3]">Project Context</h2>
+              <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 font-[font5]">Project Context</h2>
               <p className="text-gray-400 max-w-2xl mx-auto px-4 font-[font1]">
                 Developed for the ENCODE 2026 hackathon challenge: "Designing AI-Native Consumer Health Experiences"
               </p>
@@ -559,15 +559,15 @@ export default function About() {
             
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 text-center">
               <div className="p-6 rounded-2xl bg-black/40 backdrop-blur-xl border border-gray-800 transform transition-all duration-500 hover:scale-105">
-                <div className="text-3xl font-bold text-[#bfff00] mb-2 font-[font3]">AI-Native</div>
+                <div className="text-3xl font-bold text-[#bfff00] mb-2 font-[font5]">AI-Native</div>
                 <div className="text-sm text-gray-400 font-[font1]">Experience Design</div>
               </div>
               <div className="p-6 rounded-2xl bg-black/40 backdrop-blur-xl border border-gray-800 transform transition-all duration-500 hover:scale-105">
-                <div className="text-3xl font-bold text-[#D3FD50] mb-2 font-[font3]">50%</div>
+                <div className="text-3xl font-bold text-[#D3FD50] mb-2 font-[font5]">50%</div>
                 <div className="text-sm text-gray-400 font-[font1]">Judging Weight</div>
               </div>
               <div className="p-6 rounded-2xl bg-black/40 backdrop-blur-xl border border-gray-800 transform transition-all duration-500 hover:scale-105">
-                <div className="text-3xl font-bold text-green-400 mb-2 font-[font3]">2000+</div>
+                <div className="text-3xl font-bold text-green-400 mb-2 font-[font5]">2000+</div>
                 <div className="text-sm text-gray-400 font-[font1]">Participants</div>
               </div>
             </div>
@@ -582,7 +582,7 @@ export default function About() {
           }`}
         >
           <div className="text-center space-y-6 px-4">
-            <h2 className="text-3xl md:text-4xl font-bold text-white font-[font3]">Experience Tattva</h2>
+            <h2 className="text-3xl md:text-4xl font-bold text-white font-[font5]">Experience Tattva</h2>
             <p className="text-xl text-gray-400 max-w-2xl mx-auto font-[font1]">
               See how our AI-native approach transforms food label understanding
             </p>

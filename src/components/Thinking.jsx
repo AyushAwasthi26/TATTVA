@@ -195,7 +195,7 @@ export default function Thinking({ isComplete = false }) {
       <div className={`text-center space-y-4 ${isMobile ? 'max-w-xs' : 'max-w-md'}`}>
         <div className="flex items-center justify-center gap-2">
           {MESSAGES[index].icon}
-          <h2 className={`text-xl md:text-3xl font-bold text-white transition-all duration-500 ${isMobile ? 'text-lg' : ''} font-[font3]`}>
+          <h2 className={`text-xl md:text-3xl font-bold text-white transition-all duration-500 ${isMobile ? 'text-lg' : ''} font-[font5]`}>
             {MESSAGES[index].text}
           </h2>
         </div>
