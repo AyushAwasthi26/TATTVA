@@ -159,7 +159,7 @@ export default function About() {
         {/* Hero Section */}
         <section 
           ref={el => sectionRefs.current[0] = el}
-          className={`mb-20 md:mb-40 text-center space-y-8 transition-all duration-700 ${
+          className={`mb-20 md:mb-60 text-center space-y-8 transition-all duration-700 ${
             visibleSections[0] ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
           }`}
         >
