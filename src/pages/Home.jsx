@@ -81,11 +81,11 @@ export default function Home() {
               
               <div className="space-y-4">
                 {/* Desktop: One line heading, Mobile: Stacked with smaller font */}
-                <h1 className="hidden md:block text-5xl lg:text-7xl font-bold tracking-wider leading-none font-[font3]">
+                <h1 className="hidden md:block text-5xl lg:text-7xl space-x-10 font-bold tracking-wider leading-none font-[font3]">
                   <span className="text-transparent bg-clip-text bg-gradient-to-b from-white to-gray-500">
                     Reveal the
                   </span>
-                  <span className="mx-2 text-transparent bg-clip-text bg-gradient-to-b from-[#bfff00] to-green-600">
+                  <span className="text-transparent bg-clip-text bg-gradient-to-b from-[#bfff00] to-green-600">
                     Reality.
                   </span>
                 </h1>
