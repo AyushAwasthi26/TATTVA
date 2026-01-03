@@ -65,7 +65,7 @@ export default function Navbar({ onReset }) {
               <div className="absolute inset-0 bg-[#bfff00]/20 rounded-full blur-md group-hover:bg-[#bfff00]/30 transition-colors duration-300" />
               
               {/* Logo container */}
-              <div className="relative w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center">
+              <div className="relative w-10 h-8 sm:w-10 sm:h-10 flex items-center justify-center">
                 {/* The 5 "Tattvas" (Elements) represented as squares */}
                 <div className="absolute w-2 h-2 sm:w-2.5 sm:h-2.5 bg-[#bfff00] rounded-sm -translate-y-3 sm:-translate-y-3 group-hover:animate-pulse"></div> {/* Top */}
                 <div className="absolute w-2 h-2 sm:w-2.5 sm:h-2.5 bg-[#bfff00] rounded-sm translate-x-2 sm:translate-x-3 -translate-y-1 group-hover:animate-pulse" style={{ animationDelay: "0.1s" }}></div> {/* Right Top */}
