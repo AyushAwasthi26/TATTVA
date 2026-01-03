@@ -78,7 +78,7 @@ export default function Navbar({ onReset }) {
               </div>
             </div>
             
-            <span className="text-lg sm:text-xl font-bold tracking-wider text-white group-hover:text-[#bfff00] transition-colors duration-300">
+            <span className="text-lg sm:text-2xl font-bold font-[font5] tracking-wider text-white group-hover:text-[#bfff00] transition-colors duration-300">
               TATTVA
             </span>
           </button>
@@ -89,7 +89,7 @@ export default function Navbar({ onReset }) {
               <Link
                 key={link.to}
                 to={link.to}
-                className={`relative text-base lg:text-lg font-medium transition-all duration-300 py-1 ${
+                className={`relative text-base lg:text-lg font-[font5] transition-all duration-300 py-1 ${
                   location.pathname === link.to
                     ? "text-[#bfff00]"
                     : "text-gray-400 hover:text-[#bfff00]"
@@ -125,7 +125,7 @@ export default function Navbar({ onReset }) {
               <Link
                 key={link.to}
                 to={link.to}
-                className={`block text-base sm:text-lg font-medium py-3 px-4 rounded-lg transition-all duration-300 ${
+                className={`block text-base sm:text-lg font-[font5] py-3 px-4 rounded-lg transition-all duration-300 ${
                   location.pathname === link.to
                     ? "text-[#bfff00] bg-[#bfff00]/10"
                     : "text-gray-400 hover:text-[#bfff00] hover:bg-gray-800/50"

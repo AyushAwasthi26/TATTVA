@@ -92,7 +92,7 @@ export default function Result({ data, onReset }) {
         className="flex items-center space-x-2 text-gray-500 hover:text-white transition-colors duration-300 group"
       >
         <ArrowLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
-        <span className={isMobile ? "text-sm" : ""}>Scan Another Product</span>
+        <span className={`${isMobile ? "text-sm" : ""} font-[font2]`}>Scan Another Product</span>
       </button>
       
       {/* LAYER 1: THE QUICK RESULT CARD */}
@@ -105,7 +105,7 @@ export default function Result({ data, onReset }) {
           
           {/* Alert Level Badge */}
           <div className="absolute top-4 right-4">
-            <div className={`px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider ${status.badgeColor} flex items-center gap-1`}>
+            <div className={`px-3 py-1 rounded-full text-xs font-medium uppercase tracking-wider ${status.badgeColor} flex items-center gap-1`}>
               <div className={`w-2 h-2 rounded-full ${status.alertLevel === 'high' ? 'bg-red-400' : status.alertLevel === 'medium' ? 'bg-orange-400' : 'bg-emerald-400'} animate-pulse`} />
               <span className={isMobile ? "hidden" : ""}>{status.alertText}</span>
             </div>
@@ -116,19 +116,19 @@ export default function Result({ data, onReset }) {
               <StatusIcon className={`w-6 h-6 md:w-8 md:h-8`} />
             </div>
             <div className="flex-1">
-              <h2 className={`text-xl md:text-3xl lg:text-4xl font-bold text-white leading-tight mb-3 md:mb-4`}>
+              <h2 className={`text-xl md:text-3xl lg:text-3xl font-normal text-white leading-tight mb-3 md:mb-4 font-[font5]`}>
                 {headline}
               </h2>
               
               {/* Enhanced Metadata Tags */}
               <div className="flex flex-wrap items-center gap-2 md:gap-3">
-                <span className={`text-xs uppercase tracking-wider font-bold px-3 py-1.5 rounded-lg ${status.badgeColor}`}>
+                <span className={`text-xs uppercase tracking-wider font-medium px-3 py-1.5 rounded-lg ${status.badgeColor} font-[font2]`}>
                   {buy_guidance.recommendation || "ANALYSIS"}
                 </span>
-                <span className="text-xs md:text-sm text-gray-300 flex items-center gap-2">
+                <span className="text-xs md:text-sm text-gray-300 flex items-center gap-2 font-[font2]">
                   <Info size={isMobile ? 14 : 16} /> Confidence: <span className="text-white font-medium">{decision_confidence}</span>
                 </span>
-                <span className="text-xs md:text-sm text-gray-300 flex items-center gap-2">
+                <span className="text-xs md:text-sm text-gray-300 flex items-center gap-2 font-[font2]">
                   <Shield size={isMobile ? 14 : 16} /> <span className="text-white font-medium">AI Verified</span>
                 </span>
               </div>
@@ -140,11 +140,11 @@ export default function Result({ data, onReset }) {
         <div className="p-6 md:p-8">
           <div className="flex items-center gap-2 mb-4 md:mb-6">
             <TrendingUp className={`w-4 h-4 md:w-5 md:h-5 text-[#bfff00]`} />
-            <h3 className={`text-lg md:text-xl font-semibold text-white`}>Key Findings</h3>
+            <h3 className={`text-lg md:text-xl font-semibold text-white font-[font5]`}>Key Findings</h3>
           </div>
           <ul className="space-y-3 md:space-y-5">
             {summary_points.map((point, i) => (
-              <li key={i} className={`flex items-start gap-3 md:gap-4 text-gray-300 ${isMobile ? "text-sm leading-relaxed" : "text-lg leading-relaxed"}`}>
+              <li key={i} className={`flex items-start gap-3 md:gap-4 text-gray-300 ${isMobile ? "text-sm leading-relaxed" : "text-lg leading-relaxed"} font-[font2]`}>
                 <span className={`mt-2 w-2 h-2 rounded-full shrink-0 ${status.color}`} />
                 <span>{point}</span>
               </li>
@@ -157,7 +157,7 @@ export default function Result({ data, onReset }) {
           {!showDetails ? (
             <button 
               onClick={() => setShowDetails(true)}
-              className="w-full py-3 md:py-4 bg-gradient-to-r from-[#bfff00]/10 to-[#D3FD50]/10 hover:from-[#bfff00]/20 hover:to-[#D3FD50]/20 border border-[#bfff00]/20 hover:border-[#bfff00]/40 text-white rounded-2xl text-base md:text-lg font-medium transition-all duration-300 flex items-center justify-center gap-2 group"
+              className="w-full py-3 md:py-4 bg-gradient-to-r from-[#bfff00]/10 to-[#D3FD50]/10 hover:from-[#bfff00]/20 hover:to-[#D3FD50]/20 border border-[#bfff00]/20 hover:border-[#bfff00]/40 text-white rounded-2xl text-base md:text-lg font-medium transition-all duration-300 flex items-center justify-center gap-2 group font-[font2]"
             >
               See detailed analysis 
               <ChevronDown size={isMobile ? 18 : 20} className="group-hover:translate-y-0.5 transition-transform" />
@@ -168,21 +168,21 @@ export default function Result({ data, onReset }) {
                
                {/* Section A: Intent */}
                <div className="p-4 md:p-6 rounded-2xl bg-[#bfff00]/5 border border-[#bfff00]/10">
-                 <h3 className="text-sm font-bold text-[#bfff00] uppercase tracking-widest mb-3">Inferred Intent</h3>
-                 <p className={`${isMobile ? "text-base" : "text-lg"} text-gray-300 italic`}>"{inferred_intent}"</p>
+                 <h3 className="text-sm font-medium text-[#bfff00] uppercase tracking-widest mb-3 font-[font5]">Inferred Intent</h3>
+                 <p className={`${isMobile ? "text-base" : "text-lg"} text-gray-300 italic font-[font2]`}>"{inferred_intent}"</p>
                </div>
 
                {/* Section B: Key Ingredients */}
                <div className="space-y-3 md:space-y-4">
                   <div className="flex items-center gap-2">
                     <Shield className={`w-4 h-4 md:w-5 md:h-5 text-[#bfff00]`} />
-                    <h3 className={`text-base md:text-lg font-bold text-white uppercase tracking-wider`}>Key Drivers</h3>
+                    <h3 className={`text-base md:text-lg font-medium text-white uppercase tracking-wider font-[font5]`}>Key Drivers</h3>
                   </div>
                   {key_ingredients_that_matter.map((ing, i) => (
                     <div key={i} className="p-4 md:p-6 rounded-2xl bg-black/40 border border-gray-800 hover:border-[#bfff00]/30 transition-all duration-300">
                       <div className="flex justify-between items-center mb-3">
-                        <span className={`text-base md:text-xl font-semibold text-white`}>{ing.name}</span>
-                        <span className={`text-xs md:text-sm font-bold px-3 py-1 rounded-lg border 
+                        <span className={`text-base md:text-xl font-semibold text-white font-[font5]`}>{ing.name}</span>
+                        <span className={`text-xs md:text-sm font-medium px-3 py-1 rounded-lg border font-[font2]
                           ${ing.risk_level?.toLowerCase().includes('high') 
                             ? 'border-red-500/30 text-red-400 bg-red-500/10' 
                             : ing.risk_level?.toLowerCase().includes('med') 
@@ -191,7 +191,7 @@ export default function Result({ data, onReset }) {
                           {ing.risk_level?.toUpperCase()}
                         </span>
                       </div>
-                      <p className={`text-gray-300 leading-relaxed ${isMobile ? "text-sm" : ""}`}>{ing.reason}</p>
+                      <p className={`text-gray-300 leading-relaxed ${isMobile ? "text-sm" : ""} font-[font2]`}>{ing.reason}</p>
                     </div>
                   ))}
                </div>
@@ -199,12 +199,12 @@ export default function Result({ data, onReset }) {
                {/* Section C: Trade-offs & Science */}
                <div className={`grid gap-4 md:gap-6 ${isMobile ? "grid-cols-1" : "md:grid-cols-2"}`}>
                  <div className="p-4 md:p-6 rounded-2xl bg-black/40 border border-gray-800">
-                    <h3 className="text-sm font-bold text-gray-400 uppercase tracking-widest mb-3">The Trade-off</h3>
-                    <p className={`text-gray-300 leading-relaxed ${isMobile ? "text-sm" : ""}`}>{tradeoffs_and_context}</p>
+                    <h3 className="text-sm font-medium text-gray-400 uppercase tracking-widest mb-3 font-[font5]">The Trade-off</h3>
+                    <p className={`text-gray-300 leading-relaxed ${isMobile ? "text-sm" : ""} font-[font2]`}>{tradeoffs_and_context}</p>
                  </div>
                  <div className="p-4 md:p-6 rounded-2xl bg-black/40 border border-gray-800">
-                    <h3 className="text-sm font-bold text-gray-400 uppercase tracking-widest mb-3">Scientific Consensus</h3>
-                    <p className={`text-gray-300 leading-relaxed ${isMobile ? "text-sm" : ""}`}>{uncertainty_and_limits}</p>
+                    <h3 className="text-sm font-medium text-gray-400 uppercase tracking-widest mb-3 font-[font5]">Scientific Consensus</h3>
+                    <p className={`text-gray-300 leading-relaxed ${isMobile ? "text-sm" : ""} font-[font2]`}>{uncertainty_and_limits}</p>
                  </div>
                </div>
 
@@ -217,7 +217,7 @@ export default function Result({ data, onReset }) {
       <div className="flex justify-center pt-4">
         <button
           onClick={onReset}
-          className="group relative px-8 py-4 bg-gradient-to-r from-[#bfff00] to-[#D3FD50] text-black font-bold rounded-2xl shadow-lg hover:shadow-[#bfff00]/25 transition-all duration-300 flex items-center gap-3 text-lg"
+          className="group relative px-8 py-4 bg-gradient-to-r from-[#bfff00] to-[#D3FD50] text-black font-medium rounded-2xl shadow-lg hover:shadow-[#bfff00]/25 transition-all duration-300 flex items-center gap-3 text-lg font-[font2]"
         >
           <RefreshCcw className="w-5 h-5 group-hover:rotate-180 transition-transform duration-500" />
           Scan Another Product

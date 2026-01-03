@@ -195,12 +195,12 @@ export default function Thinking({ isComplete = false }) {
       <div className={`text-center space-y-4 ${isMobile ? 'max-w-xs' : 'max-w-md'}`}>
         <div className="flex items-center justify-center gap-2">
           {MESSAGES[index].icon}
-          <h2 className={`text-xl md:text-3xl font-bold text-white transition-all duration-500 ${isMobile ? 'text-lg' : ''}`}>
+          <h2 className={`text-xl md:text-3xl font-bold text-white transition-all duration-500 ${isMobile ? 'text-lg' : ''} font-[font3]`}>
             {MESSAGES[index].text}
           </h2>
         </div>
         
-        <div className="text-gray-400 flex items-center justify-center gap-2 text-base md:text-lg">
+        <div className="text-gray-400 flex items-center justify-center gap-2 text-base md:text-lg font-[font2]">
           <Loader2 
             className={`w-4 h-4 md:w-5 md:h-5 transition-all duration-500`}
             style={{
@@ -217,7 +217,7 @@ export default function Thinking({ isComplete = false }) {
         </div>
         
         {/* Detailed Status */}
-        <div className="text-xs md:text-sm text-gray-500 italic transition-all duration-500">
+        <div className="text-xs md:text-sm text-gray-500 italic transition-all duration-500 font-[font2]">
           {DETAILED_MESSAGES[detailedIndex]}
         </div>
       </div>
@@ -237,23 +237,23 @@ export default function Thinking({ isComplete = false }) {
           </div>
         </div>
         <div className="flex justify-between mt-2">
-          <span className="text-xs text-gray-600">Analyzing</span>
+          <span className="text-xs text-gray-600 font-[font2]">Analyzing</span>
           <span className="text-xs font-medium" style={{ color: getProcessingColor() }}>
             {Math.round(progress)}%
           </span>
-          <span className="text-xs text-gray-600">Complete</span>
+          <span className="text-xs text-gray-600 font-[font2]">Complete</span>
         </div>
       </div>
       
       {/* Additional Context */}
       <div className={`text-center ${isMobile ? 'max-w-xs' : 'max-w-md'} space-y-2 px-4`}>
-        <p className="text-gray-500 text-xs md:text-sm">
+        <p className="text-gray-500 text-xs md:text-sm font-[font2]">
           Our AI is cross-referencing scientific databases and health guidelines to provide you with accurate insights.
         </p>
         {isComplete && (
           <div className="flex items-center justify-center gap-2 text-green-400 animate-fade-in">
             <CheckCircle size={isMobile ? 14 : 16} />
-            <span className="text-xs md:text-sm">Analysis complete! Loading results...</span>
+            <span className="text-xs md:text-sm font-[font2]">Analysis complete! Loading results...</span>
           </div>
         )}
       </div>

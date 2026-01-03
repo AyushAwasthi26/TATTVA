@@ -81,7 +81,7 @@ export default function Home() {
               
               <div className="space-y-4">
                 {/* Desktop: One line heading, Mobile: Stacked with smaller font */}
-                <h1 className="hidden md:block text-5xl lg:text-6xl font-bold tracking-tight leading-none">
+                <h1 className="hidden md:block text-5xl lg:text-7xl font-bold tracking-wider leading-none font-[font3]">
                   <span className="text-transparent bg-clip-text bg-gradient-to-b from-white to-gray-500">
                     Reveal the
                   </span>
@@ -90,7 +90,7 @@ export default function Home() {
                   </span>
                 </h1>
                 
-                <h1 className="md:hidden text-4xl sm:text-4xl font-bold tracking-tight leading-tight">
+                <h1 className="md:hidden text-4xl sm:text-4xl font-bold tracking-wider leading-tight font-[font3]">
                   <span className="block text-transparent bg-clip-text bg-gradient-to-b from-white to-gray-500">
                     Reveal the
                   </span>
@@ -99,7 +99,7 @@ export default function Home() {
                   </span>
                 </h1>
                 
-                <p className="text-base sm:text-lg md:text-xl text-gray-400 font-light max-w-2xl mx-auto leading-relaxed">
+                <p className="text-base sm:text-lg md:text-xl text-gray-400 font-light max-w-2xl mx-auto leading-relaxed font-[font1]">
                   AI-native reasoning for your food labels.
                 </p>
               </div>
@@ -111,13 +111,13 @@ export default function Home() {
             
             {/* Enhanced Feature Pills with better spacing and effects */}
             <div className="flex flex-wrap justify-center gap-3 pt-4 px-4">
-              <div className="px-4 py-2 rounded-full bg-black/60 backdrop-blur-md border border-[#bfff00]/20 text-sm text-gray-300 shadow-lg hover:shadow-[#bfff00]/10 transition-all duration-300 hover:scale-105">
+              <div className="px-4 py-2 rounded-full bg-black/60 backdrop-blur-md border border-[#bfff00]/20 text-sm text-gray-300 shadow-lg hover:shadow-[#bfff00]/10 transition-all duration-300 hover:scale-105 font-[font1]">
                 Instant Analysis
               </div>
-              <div className="px-4 py-2 rounded-full bg-black/60 backdrop-blur-md border border-[#bfff00]/20 text-sm text-gray-300 shadow-lg hover:shadow-[#bfff00]/10 transition-all duration-300 hover:scale-105">
+              <div className="px-4 py-2 rounded-full bg-black/60 backdrop-blur-md border border-[#bfff00]/20 text-sm text-gray-300 shadow-lg hover:shadow-[#bfff00]/10 transition-all duration-300 hover:scale-105 font-[font1]">
                 Science-Backed
               </div>
-              <div className="px-4 py-2 rounded-full bg-black/60 backdrop-blur-md border border-[#bfff00]/20 text-sm text-gray-300 shadow-lg hover:shadow-[#bfff00]/10 transition-all duration-300 hover:scale-105">
+              <div className="px-4 py-2 rounded-full bg-black/60 backdrop-blur-md border border-[#bfff00]/20 text-sm text-gray-300 shadow-lg hover:shadow-[#bfff00]/10 transition-all duration-300 hover:scale-105 font-[font1]">
                 Privacy First
               </div>
             </div>

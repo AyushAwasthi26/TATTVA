@@ -123,7 +123,7 @@ export default function About() {
   ];
 
   return (
-    <div className="min-h-screen bg-black text-white font-sans overflow-x-hidden">
+    <div className="min-h-screen bg-black text-white overflow-x-hidden">
       <Navbar onReset={() => {}} />
       
       {/* Enhanced Background Elements with Parallax */}
@@ -164,7 +164,7 @@ export default function About() {
           }`}
         >
           <div className="space-y-6">
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-tight">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-8xl font-bold tracking-wider leading-tight font-[font3]">
               <span className="block text-transparent bg-clip-text bg-gradient-to-b from-white to-gray-600">
                 The Truth Behind
               </span>
@@ -173,15 +173,15 @@ export default function About() {
               </span>
             </h1>
             
-            <p className="text-lg sm:text-xl md:text-2xl text-gray-400 font-light max-w-3xl mx-auto leading-relaxed px-4">
+            <p className="text-lg sm:text-xl md:text-2xl text-gray-400 font-light max-w-3xl mx-auto leading-relaxed px-4 font-[font1]">
               Food marketing is designed to confuse. We built Tattva to cut through the noise and reveal the essence of what you eat.
             </p>
             
             <div className="flex flex-wrap items-center justify-center gap-2 pt-4 px-4">
-              <div className="px-4 py-2 rounded-full bg-black/60 backdrop-blur-md border border-[#bfff00]/20 text-sm text-gray-300 hover:bg-[#bfff00]/10 transition-colors duration-300">
+              <div className="px-4 py-2 rounded-full bg-black/60 backdrop-blur-md border border-[#bfff00]/20 text-sm text-gray-300 hover:bg-[#bfff00]/10 transition-colors duration-300 font-[font1]">
                 ENCODE 2026 Project
               </div>
-              <div className="px-4 py-2 rounded-full bg-black/60 backdrop-blur-md border border-[#bfff00]/20 text-sm text-gray-300 hover:bg-[#bfff00]/10 transition-colors duration-300">
+              <div className="px-4 py-2 rounded-full bg-black/60 backdrop-blur-md border border-[#bfff00]/20 text-sm text-gray-300 hover:bg-[#bfff00]/10 transition-colors duration-300 font-[font1]">
                 AI-Native Design
               </div>
             </div>
@@ -196,9 +196,9 @@ export default function About() {
           }`}
         >
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Meet The Team</h2>
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 font-[font3] tracking-widest">Meet The Team</h2>
             <div className="w-24 h-1 bg-gradient-to-r from-[#bfff00] to-[#D3FD50] mx-auto rounded-full" />
-            <p className="text-gray-400 mt-4 max-w-2xl mx-auto px-4">
+            <p className="text-gray-400 mt-4 max-w-2xl mx-auto px-4 font-[font1]">
               Four developers united by a vision to transform how people understand food through AI-native design
             </p>
           </div>
@@ -224,14 +224,14 @@ export default function About() {
                     </div>
                   </div>
                   <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 px-2 md:px-3 py-1 bg-black/80 backdrop-blur-md rounded-full">
-                    <span className="text-xs text-[#bfff00]">ENCODE 2026</span>
+                    <span className="text-xs text-[#bfff00] font-[font1]">ENCODE 2026</span>
                   </div>
                 </div>
                 
                 <div className="text-center space-y-1 md:space-y-2 px-1">
-                  <h3 className="text-sm md:text-lg lg:text-xl font-bold text-white">{member.name}</h3>
-                  <p className="text-xs md:text-sm text-[#D3FD50] font-medium">{member.role}</p>
-                  <p className="text-xs md:text-sm text-gray-400 leading-relaxed hidden md:block">{member.description}</p>
+                  <h3 className="text-sm md:text-lg lg:text-2xl font-bold text-white font-[font3] tracking-wider">{member.name}</h3>
+                  <p className="text-xs md:text-sm text-[#D3FD50] font-medium font-[font1]">{member.role}</p>
+                  <p className="text-xs md:text-sm text-gray-400 leading-relaxed hidden md:block font-[font1]">{member.description}</p>
                 </div>
               </div>
             ))}
@@ -246,9 +246,9 @@ export default function About() {
           }`}
         >
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">How to Use Tattva</h2>
+            <h2 className="text-3xl md:text-5xl font-bold text-white mb-4 font-[font3] tracking-wider">How to Use Tattva</h2>
             <div className="w-24 h-1 bg-gradient-to-r from-[#bfff00] to-[#D3FD50] mx-auto rounded-full" />
-            <p className="text-gray-400 mt-4 max-w-2xl mx-auto px-4">
+            <p className="text-gray-400 mt-4 max-w-2xl mx-auto px-4 font-[font1]">
               Get instant insights about your food in four simple steps
             </p>
           </div>
@@ -263,13 +263,13 @@ export default function About() {
                     <div className="aspect-square bg-gray-900 rounded-xl overflow-hidden flex items-center justify-center">
                       <div className="text-center">
                         <Upload className="w-12 h-12 text-[#bfff00] mx-auto mb-2" />
-                        <p className="text-sm text-gray-400">Upload Image</p>
+                        <p className="text-sm text-gray-400 font-[font1]">Upload Image</p>
                       </div>
                     </div>
                     <div className="aspect-square bg-gray-900 rounded-xl overflow-hidden flex items-center justify-center">
                       <div className="text-center">
                         <FileText className="w-12 h-12 text-[#bfff00] mx-auto mb-2" />
-                        <p className="text-sm text-gray-400">Paste Text</p>
+                        <p className="text-sm text-gray-400 font-[font1]">Paste Text</p>
                       </div>
                     </div>
                   </div>
@@ -277,10 +277,10 @@ export default function About() {
               </div>
               
               <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-[#bfff00]/20 border border-[#bfff00]/30 mt-6">
-                <span className="text-[#bfff00] font-bold">1</span>
+                <span className="text-[#bfff00] font-bold font-[font3]">1</span>
               </div>
-              <h3 className="text-xl font-semibold text-white mt-4">Input Your Food Information</h3>
-              <p className="text-gray-400 mt-2 text-center max-w-lg">
+              <h3 className="text-xl font-semibold text-white mt-4 font-[font3]">Input Your Food Information</h3>
+              <p className="text-gray-400 mt-2 text-center max-w-lg font-[font1]">
                 Choose to upload a photo of the food label or paste the ingredients list directly.
               </p>
             </div>
@@ -293,8 +293,8 @@ export default function About() {
                     <Loader2 className="w-10 h-10 text-[#bfff00] animate-spin" />
                   </div>
                   <div className="space-y-2 text-center">
-                    <p className="text-white font-medium">AI is analyzing your food...</p>
-                    <p className="text-sm text-gray-400">Cross-referencing with health guidelines</p>
+                    <p className="text-white font-medium font-[font1]">AI is analyzing your food...</p>
+                    <p className="text-sm text-gray-400 font-[font1]">Cross-referencing with health guidelines</p>
                     <div className="w-full bg-gray-800 rounded-full h-2 mt-4">
                       <div className="bg-gradient-to-r from-[#bfff00] to-[#D3FD50] h-2 rounded-full" style={{width: '65%'}}></div>
                     </div>
@@ -303,10 +303,10 @@ export default function About() {
               </div>
               
               <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-[#bfff00]/20 border border-[#bfff00]/30 mt-6">
-                <span className="text-[#bfff00] font-bold">2</span>
+                <span className="text-[#bfff00] font-bold font-[font3]">2</span>
               </div>
-              <h3 className="text-xl font-semibold text-white mt-4">AI Processing</h3>
-              <p className="text-gray-400 mt-2 text-center max-w-lg">
+              <h3 className="text-xl font-semibold text-white mt-4 font-[font3]">AI Processing</h3>
+              <p className="text-gray-400 mt-2 text-center max-w-lg font-[font1]">
                 Our AI analyzes ingredients and cross-references scientific databases.
               </p>
             </div>
@@ -320,31 +320,31 @@ export default function About() {
                       <AlertCircle className="w-6 h-6 text-orange-400" />
                     </div>
                     <div>
-                      <p className="text-white font-medium">Highly Processed</p>
-                      <p className="text-sm text-gray-400">Use Caution</p>
+                      <p className="text-white font-medium font-[font1]">Highly Processed</p>
+                      <p className="text-sm text-gray-400 font-[font1]">Use Caution</p>
                     </div>
                   </div>
                   <div className="space-y-2">
                     <div className="flex items-center gap-2">
                       <CheckCircle className="w-4 h-4 text-green-400" />
-                      <p className="text-sm text-gray-300">AI Verified</p>
+                      <p className="text-sm text-gray-300 font-[font1]">AI Verified</p>
                     </div>
                     <div className="flex items-center gap-2">
                       <BarChart3 className="w-4 h-4 text-[#bfff00]" />
-                      <p className="text-sm text-gray-300">Confidence: High</p>
+                      <p className="text-sm text-gray-300 font-[font1]">Confidence: High</p>
                     </div>
                   </div>
                   <div className="mt-4 p-3 bg-gray-800/50 rounded-lg">
-                    <p className="text-sm text-gray-300">Contains multiple added sugars and refined ingredients</p>
+                    <p className="text-sm text-gray-300 font-[font1]">Contains multiple added sugars and refined ingredients</p>
                   </div>
                 </div>
               </div>
               
               <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-[#bfff00]/20 border border-[#bfff00]/30 mt-6">
-                <span className="text-[#bfff00] font-bold">3</span>
+                <span className="text-[#bfff00] font-bold font-[font3]">3</span>
               </div>
-              <h3 className="text-xl font-semibold text-white mt-4">Get Instant Results</h3>
-              <p className="text-gray-400 mt-2 text-center max-w-lg">
+              <h3 className="text-xl font-semibold text-white mt-4 font-[font3]">Get Instant Results</h3>
+              <p className="text-gray-400 mt-2 text-center max-w-lg font-[font1]">
                 Receive immediate insights with a clear verdict and key findings.
               </p>
             </div>
@@ -353,11 +353,11 @@ export default function About() {
             <div className="flex flex-col items-center">
               <div className="relative w-full max-w-md">
                 <div className="bg-black/40 backdrop-blur-xl border border-gray-800 rounded-2xl p-6 hover:border-[#bfff00]/30 transition-all duration-300">
-                  <button className="w-full py-2 bg-gradient-to-r from-[#bfff00]/10 to-[#D3FD50]/10 border border-[#bfff00]/20 text-white rounded-lg flex items-center justify-center gap-2 hover:bg-[#bfff00]/20 transition-colors">
+                  <button className="w-full py-2 bg-gradient-to-r from-[#bfff00]/10 to-[#D3FD50]/10 border border-[#bfff00]/20 text-white rounded-lg flex items-center justify-center gap-2 hover:bg-[#bfff00]/20 transition-colors font-[font1]">
                     <span>See Detailed Analysis</span>
                     <ChevronRight className="w-4 h-4" />
                   </button>
-                  <div className="mt-4 space-y-2 text-sm text-gray-400">
+                  <div className="mt-4 space-y-2 text-sm text-gray-400 font-[font1]">
                     <p>• Ingredient breakdown with risk levels</p>
                     <p>• Scientific consensus on controversial ingredients</p>
                     <p>• Personalized recommendations</p>
@@ -366,10 +366,10 @@ export default function About() {
               </div>
               
               <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-[#bfff00]/20 border border-[#bfff00]/30 mt-6">
-                <span className="text-[#bfff00] font-bold">4</span>
+                <span className="text-[#bfff00] font-bold font-[font3]">4</span>
               </div>
-              <h3 className="text-xl font-semibold text-white mt-4">Explore Detailed Analysis</h3>
-              <p className="text-gray-400 mt-2 text-center max-w-lg">
+              <h3 className="text-xl font-semibold text-white mt-4 font-[font3]">Explore Detailed Analysis</h3>
+              <p className="text-gray-400 mt-2 text-center max-w-lg font-[font1]">
                 Dive deeper with comprehensive ingredient analysis and personalized recommendations.
               </p>
             </div>
@@ -378,7 +378,7 @@ export default function About() {
           <div className="text-center mt-12">
             <Link 
               to="/"
-              className="inline-flex px-8 py-4 rounded-2xl bg-gradient-to-r from-[#bfff00] to-[#D3FD50] text-black font-bold shadow-lg hover:shadow-[#bfff00]/25 transition-all duration-300 items-center gap-2 group transform hover:scale-105"
+              className="inline-flex px-8 py-4 rounded-2xl bg-gradient-to-r from-[#bfff00] to-[#D3FD50] text-black font-bold shadow-lg hover:shadow-[#bfff00]/25 transition-all duration-300 items-center gap-2 group transform hover:scale-105 font-[font1]"
             >
               Try Tattva Now
               <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
@@ -394,7 +394,7 @@ export default function About() {
           }`}
         >
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Our Approach</h2>
+            <h2 className="text-3xl md:text-5xl font-bold text-white mb-4 font-[font3] tracking-wider">Our Approach</h2>
             <div className="w-24 h-1 bg-gradient-to-r from-[#bfff00] to-[#D3FD50] mx-auto rounded-full" />
           </div>
           
@@ -414,9 +414,9 @@ export default function About() {
                   <div className="p-2 rounded-lg bg-[#bfff00]/10 text-[#bfff00] group-hover:scale-110 transition-transform">
                     {item.icon}
                   </div>
-                  <h3 className="text-lg font-bold text-white">{item.title}</h3>
+                  <h3 className="text-lg font-bold text-white font-[font3]">{item.title}</h3>
                 </div>
-                <p className="text-gray-400 text-sm leading-relaxed">{item.description}</p>
+                <p className="text-gray-400 text-sm leading-relaxed font-[font1]">{item.description}</p>
               </div>
             ))}
           </div>
@@ -430,7 +430,7 @@ export default function About() {
           }`}
         >
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">The Challenge We Addressed</h2>
+            <h2 className="text-3xl md:text-5xl font-bold text-white mb-4 font-[font3] tracking-wide">The Challenge We Addressed</h2>
             <div className="w-24 h-1 bg-gradient-to-r from-[#bfff00] to-[#D3FD50] mx-auto rounded-full" />
           </div>
           
@@ -439,8 +439,8 @@ export default function About() {
               <div className="p-3 rounded-xl bg-gray-800/60 w-fit mb-6 group-hover:bg-[#bfff00]/10 transition-colors">
                 <Shield className="w-8 h-8 text-[#D3FD50]" />
               </div>
-              <h3 className="text-xl md:text-2xl font-bold text-white mb-4">The Information Gap</h3>
-              <p className="text-gray-400 text-sm md:text-lg leading-relaxed">
+              <h3 className="text-xl md:text-2xl font-bold text-white mb-4 font-[font3]">The Information Gap</h3>
+              <p className="text-gray-400 text-sm md:text-lg leading-relaxed font-[font1]">
                 Food labels are optimized for regulatory compliance, not human understanding. "E471" tells you nothing about its effect on your gut health. This creates confusion exactly when consumers need clarity most.
               </p>
             </div>
@@ -449,8 +449,8 @@ export default function About() {
               <div className="p-3 rounded-xl bg-gray-800/60 w-fit mb-6 group-hover:bg-[#bfff00]/10 transition-colors">
                 <Zap className="w-8 h-8 text-[#D3FD50]" />
               </div>
-              <h3 className="text-xl md:text-2xl font-bold text-white mb-4">Cognitive Overload</h3>
-              <p className="text-gray-400 text-sm md:text-lg leading-relaxed">
+              <h3 className="text-xl md:text-2xl font-bold text-white mb-4 font-[font3]">Cognitive Overload</h3>
+              <p className="text-gray-400 text-sm md:text-lg leading-relaxed font-[font1]">
                 Making healthy decisions requires memorizing hundreds of additives. That's cognitive work an AI should do for you. Traditional apps expect users to interpret chemical names and conflicting health advice.
               </p>
             </div>
@@ -465,13 +465,13 @@ export default function About() {
           }`}
         >
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">The Tattva Philosophy</h2>
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 font-[font3]">The Tattva Philosophy</h2>
             <div className="w-24 h-1 bg-gradient-to-r from-[#bfff00] to-[#D3FD50] mx-auto rounded-full" />
           </div>
           
           <div className="p-6 md:p-12 rounded-3xl bg-black/40 backdrop-blur-xl border border-gray-800">
-            <p className="text-xl md:text-2xl lg:text-3xl text-center font-light text-white mb-12 px-4">
-              <strong className="text-[#D3FD50]">AI as the Interface.</strong> We don't just act as a database lookup. Tattva acts as a reasoning engine that infers intent and explains only what matters.
+            <p className="text-xl md:text-2xl lg:text-3xl text-center font-light text-white mb-12 px-4 font-[font1]">
+              <strong className="text-[#D3FD50] font-[font3]">AI as the Interface.</strong> We don't just act as a database lookup. Tattva acts as a reasoning engine that infers intent and explains only what matters.
             </p>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
@@ -483,8 +483,8 @@ export default function About() {
                     transitionDelay: `${visibleSections[4] ? index * 100 : 0}ms`
                   }}
                 >
-                  <h3 className="text-lg md:text-xl font-bold text-white mb-3">{principle.title}</h3>
-                  <p className="text-gray-300 leading-relaxed text-sm md:text-base">{principle.description}</p>
+                  <h3 className="text-lg md:text-xl font-bold text-white mb-3 font-[font3]">{principle.title}</h3>
+                  <p className="text-gray-300 leading-relaxed text-sm md:text-base font-[font1]">{principle.description}</p>
                 </div>
               ))}
             </div>
@@ -499,39 +499,39 @@ export default function About() {
           }`}
         >
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">AI-Native Technology</h2>
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 font-[font3]">AI-Native Technology</h2>
             <div className="w-24 h-1 bg-gradient-to-r from-[#bfff00] to-[#D3FD50] mx-auto rounded-full" />
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
             <div className="p-6 rounded-2xl bg-black/40 backdrop-blur-xl border border-gray-800 transform transition-all duration-500 hover:-translate-y-2 hover:shadow-lg">
-              <h3 className="text-xl font-bold text-[#bfff00] mb-4">Intent Inference</h3>
-              <p className="text-gray-400 mb-4 text-sm md:text-base">
+              <h3 className="text-xl font-bold text-[#bfff00] mb-4 font-[font3]">Intent Inference</h3>
+              <p className="text-gray-400 mb-4 text-sm md:text-base font-[font1]">
                 Our system automatically detects what you care about - allergens, additives, or general health - without any forms or filters.
               </p>
-              <div className="flex items-center text-sm text-gray-500">
+              <div className="flex items-center text-sm text-gray-500 font-[font1]">
                 <Brain className="w-4 h-4 mr-2" />
                 Multimodal Understanding
               </div>
             </div>
             
             <div className="p-6 rounded-2xl bg-black/40 backdrop-blur-xl border border-gray-800 transform transition-all duration-500 hover:-translate-y-2 hover:shadow-lg">
-              <h3 className="text-xl font-bold text-[#D3FD50] mb-4">Reasoning Engine</h3>
-              <p className="text-gray-400 mb-4 text-sm md:text-base">
+              <h3 className="text-xl font-bold text-[#D3FD50] mb-4 font-[font3]">Reasoning Engine</h3>
+              <p className="text-gray-400 mb-4 text-sm md:text-base font-[font1]">
                 We explain trade-offs and uncertainty honestly, helping you make confident decisions rather than providing false certainty.
               </p>
-              <div className="flex items-center text-sm text-gray-500">
+              <div className="flex items-center text-sm text-gray-500 font-[font1]">
                 <Lightbulb className="w-4 h-4 mr-2" />
                 Contextual Analysis
               </div>
             </div>
             
             <div className="p-6 rounded-2xl bg-black/40 backdrop-blur-xl border border-gray-800 transform transition-all duration-500 hover:-translate-y-2 hover:shadow-lg">
-              <h3 className="text-xl font-bold text-green-400 mb-4">Cognitive Ease</h3>
-              <p className="text-gray-400 mb-4 text-sm md:text-base">
+              <h3 className="text-xl font-bold text-green-400 mb-4 font-[font3]">Cognitive Ease</h3>
+              <p className="text-gray-400 mb-4 text-sm md:text-base font-[font1]">
                 We reduce mental effort at the moment of decision by providing clear, actionable insights rather than overwhelming data.
               </p>
-              <div className="flex items-center text-sm text-gray-500">
+              <div className="flex items-center text-sm text-gray-500 font-[font1]">
                 <Target className="w-4 h-4 mr-2" />
                 Decision Support
               </div>
@@ -551,24 +551,24 @@ export default function About() {
               <div className="inline-flex p-3 rounded-full bg-[#bfff00]/10 mb-4">
                 <Target className="w-8 h-8 text-[#bfff00]" />
               </div>
-              <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Project Context</h2>
-              <p className="text-gray-400 max-w-2xl mx-auto px-4">
+              <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 font-[font3]">Project Context</h2>
+              <p className="text-gray-400 max-w-2xl mx-auto px-4 font-[font1]">
                 Developed for the ENCODE 2026 hackathon challenge: "Designing AI-Native Consumer Health Experiences"
               </p>
             </div>
             
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 text-center">
               <div className="p-6 rounded-2xl bg-black/40 backdrop-blur-xl border border-gray-800 transform transition-all duration-500 hover:scale-105">
-                <div className="text-3xl font-bold text-[#bfff00] mb-2">AI-Native</div>
-                <div className="text-sm text-gray-400">Experience Design</div>
+                <div className="text-3xl font-bold text-[#bfff00] mb-2 font-[font3]">AI-Native</div>
+                <div className="text-sm text-gray-400 font-[font1]">Experience Design</div>
               </div>
               <div className="p-6 rounded-2xl bg-black/40 backdrop-blur-xl border border-gray-800 transform transition-all duration-500 hover:scale-105">
-                <div className="text-3xl font-bold text-[#D3FD50] mb-2">50%</div>
-                <div className="text-sm text-gray-400">Judging Weight</div>
+                <div className="text-3xl font-bold text-[#D3FD50] mb-2 font-[font3]">50%</div>
+                <div className="text-sm text-gray-400 font-[font1]">Judging Weight</div>
               </div>
               <div className="p-6 rounded-2xl bg-black/40 backdrop-blur-xl border border-gray-800 transform transition-all duration-500 hover:scale-105">
-                <div className="text-3xl font-bold text-green-400 mb-2">2000+</div>
-                <div className="text-sm text-gray-400">Participants</div>
+                <div className="text-3xl font-bold text-green-400 mb-2 font-[font3]">2000+</div>
+                <div className="text-sm text-gray-400 font-[font1]">Participants</div>
               </div>
             </div>
           </div>
@@ -582,13 +582,13 @@ export default function About() {
           }`}
         >
           <div className="text-center space-y-6 px-4">
-            <h2 className="text-3xl md:text-4xl font-bold text-white">Experience Tattva</h2>
-            <p className="text-xl text-gray-400 max-w-2xl mx-auto">
+            <h2 className="text-3xl md:text-4xl font-bold text-white font-[font3]">Experience Tattva</h2>
+            <p className="text-xl text-gray-400 max-w-2xl mx-auto font-[font1]">
               See how our AI-native approach transforms food label understanding
             </p>
             <Link 
               to="/"
-              className="inline-flex px-8 py-4 rounded-2xl bg-gradient-to-r from-[#bfff00] to-[#D3FD50] text-black font-bold shadow-lg hover:shadow-[#bfff00]/25 transition-all duration-300 items-center gap-2 group transform hover:scale-105"
+              className="inline-flex px-8 py-4 rounded-2xl bg-gradient-to-r from-[#bfff00] to-[#D3FD50] text-black font-bold shadow-lg hover:shadow-[#bfff00]/25 transition-all duration-300 items-center gap-2 group transform hover:scale-105 font-[font1]"
             >
               Try Tattva Now
               <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
@@ -598,7 +598,7 @@ export default function About() {
 
         {/* Footer Note */}
         <div className="text-center pt-10 border-t border-gray-800">
-          <p className="text-gray-600 text-sm px-4">
+          <p className="text-gray-600 text-sm px-4 font-[font1]">
             Built for ENCODE 2026. Designed to make food transparency accessible to everyone.
           </p>
           
