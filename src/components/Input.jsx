@@ -13,7 +13,7 @@ export default function Input({ onAnalyze }) {
   const [cameraPermission, setCameraPermission] = useState('prompt');
   const [transcript, setTranscript] = useState('');
   const [interimText, setInterimText] = useState('');
-  const [facingMode, setFacingMode] = useState('user'); // Start with user camera for PC
+  const [facingMode, setFacingMode] = useState('environment'); // Start with back camera by default
   const [isMobile, setIsMobile] = useState(false);
   
   const fileInputRef = useRef(null);
@@ -244,7 +244,7 @@ export default function Input({ onAnalyze }) {
         video: {
           width: { ideal: isMobileDevice ? 1280 : 640 },
           height: { ideal: isMobileDevice ? 720 : 480 },
-          facingMode: isMobileDevice ? 'environment' : 'user', // Use back camera on mobile, front on desktop
+          facingMode: 'environment', // Always start with back camera
         }
       };
       
@@ -254,6 +254,7 @@ export default function Input({ onAnalyze }) {
       setCameraPermission('granted');
       streamRef.current = stream;
       setIsCameraOpen(true);
+      setFacingMode('environment'); // Ensure state is set to back camera
       
       if (videoRef.current) {
         videoRef.current.srcObject = stream;
