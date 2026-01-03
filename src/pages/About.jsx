@@ -154,7 +154,7 @@ export default function About() {
         </div>
       </div>
       
-      <main className="relative pt-20 md:pt-72 pb-20 px-4 sm:px-6 max-w-6xl mx-auto z-10">
+      <main className="relative pt-20 md:pt-82 pb-20 px-4 sm:px-6 max-w-6xl mx-auto z-10">
         
         {/* Hero Section */}
         <section 
