@@ -31,6 +31,10 @@ An AI-powered web application that transforms how consumers understand food labe
 - [📸 Screenshots](#-screenshots)
 - [🌟 About the Project](#-about-the-project)
 - [✨ Features](#-features)
+- [▶️ Usage](#️-usage)
+- [🔐 Privacy & Data Safety](#-privacy--data-safety)
+- [⚠️ Limitations](#️-limitations)
+- [🧹 Repository Hygiene](#-repository-hygiene)
 - [🤖 AI Technology](#-ai-technology)
 - [💻 Tech Stack](#-tech-stack)
 - [🚀 Getting Started](#-getting-started)
@@ -45,26 +49,30 @@ An AI-powered web application that transforms how consumers understand food labe
 
 <div align="center">
   <p><em>Home screen with input options for food label analysis</em></p>
-  <img width="919" height="1079" alt="image" src="https://github.com/user-attachments/assets/8a65b85f-1ae4-42a9-b7f2-4e7d86fb2e41" />
+  <img width="919" height="1079" alt="image" src="https://github.com/user-attachments/assets/3ad0bae7-530a-4fd6-b913-0de7de0d0d6a" />
+
 
 </div>
 
 <div align="center">
   <p><em>AI processing interface with real-time progress updates</em></p>
-  <img width="919" height="1079" alt="image" src="https://github.com/user-attachments/assets/ceab7ea0-8cdb-4de3-91ed-3975359855c2" />
+  <img width="919" height="1079" alt="image" src="https://github.com/user-attachments/assets/2367d0e7-16fa-4b5c-97c6-c9dc545f1d3f" />
+
 
 </div>
 
 <div align="center">
     <p><em>Analysis results with clear verdict and key findings</em></p>
-  <img width="919" height="1075" alt="image" src="https://github.com/user-attachments/assets/92cf4473-180d-41fa-b24d-f538375df892" />
+  <img width="919" height="1079" alt="image" src="https://github.com/user-attachments/assets/78506fb3-505d-4093-b9e3-ee8f973387c7" />
+
 
   
 </div>
 
 <div align="center">
     <p><em>Detailed ingredient breakdown with risk assessments</em></p>
-  <img width="919" height="1079" alt="image" src="https://github.com/user-attachments/assets/4f03a011-43e3-4d7d-a798-9875d6f8035e" />
+  <img width="1919" height="1079" alt="image" src="https://github.com/user-attachments/assets/19dd4ecb-14ed-4ddc-ae19-5d7c01a3388f" />
+
 </div>
 
 ---
@@ -101,6 +109,43 @@ Our solution uses advanced AI reasoning to:
 - 💚 **Honest Uncertainty** - Acknowledges when science is mixed rather than pretending certainty
 
 ---
+
+---
+
+## ▶️ Usage
+
+1. Upload a food label image or paste an ingredients list.
+2. Wait for the AI to analyze the input in real time.
+3. View the final verdict (Buy / Use Caution / Avoid) with confidence level.
+4. Explore ingredient-level explanations if needed.
+
+---
+
+## 🔐 Privacy & Data Safety
+
+- No user data is stored permanently.
+- Uploaded images and text are processed only for real-time analysis.
+- No tracking, profiling, or third-party data sharing.
+- API keys are handled securely using environment variables.
+
+---
+
+## ⚠️ Limitations
+
+- OCR accuracy depends on image quality and lighting.
+- Some ingredients have mixed or evolving scientific consensus.
+- This tool provides informational insights and does not replace medical or nutritional advice.
+
+---
+
+## 🧹 Repository Hygiene
+
+- Clean and modular React component structure.
+- Clear separation between UI, logic, and AI integration.
+- Well-documented setup, usage, and folder structure.
+
+---
+
 
 ## 🤖 AI Technology
 
