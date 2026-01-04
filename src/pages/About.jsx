@@ -766,16 +766,16 @@ export default function About() {
           
           {/* Social Links - Space for you to add your actual links */}
           <div className="flex items-center justify-center gap-4 mt-6">
-            <a href="#" className="p-2 rounded-full bg-black/60 border border-gray-800 text-gray-400 hover:text-[#bfff00] hover:border-[#bfff00]/50 transition-all duration-300 transform hover:scale-110">
+            <a href="https://github.com/AyushAwasthi26/TATTVA" className="p-2 rounded-full bg-black/60 border border-gray-800 text-gray-400 hover:text-[#bfff00] hover:border-[#bfff00]/50 transition-all duration-300 transform hover:scale-110">
               <Github size={18} />
             </a>
-            <a href="#" className="p-2 rounded-full bg-black/60 border border-gray-800 text-gray-400 hover:text-[#bfff00] hover:border-[#bfff00]/50 transition-all duration-300 transform hover:scale-110">
+            <a href="https://x.com/otakuayush_" className="p-2 rounded-full bg-black/60 border border-gray-800 text-gray-400 hover:text-[#bfff00] hover:border-[#bfff00]/50 transition-all duration-300 transform hover:scale-110">
               <Twitter size={18} />
             </a>
-            <a href="#" className="p-2 rounded-full bg-black/60 border border-gray-800 text-gray-400 hover:text-[#bfff00] hover:border-[#bfff00]/50 transition-all duration-300 transform hover:scale-110">
+            <a href="https://www.linkedin.com/in/ayush-awasthi-dev/" className="p-2 rounded-full bg-black/60 border border-gray-800 text-gray-400 hover:text-[#bfff00] hover:border-[#bfff00]/50 transition-all duration-300 transform hover:scale-110">
               <Linkedin size={18} />
             </a>
-            <a href="#" className="p-2 rounded-full bg-black/60 border border-gray-800 text-gray-400 hover:text-[#bfff00] hover:border-[#bfff00]/50 transition-all duration-300 transform hover:scale-110">
+            <a href="https://mail.google.com/mail/?view=cm&fs=1&to=ayushawasthi382@gmail.com" className="p-2 rounded-full bg-black/60 border border-gray-800 text-gray-400 hover:text-[#bfff00] hover:border-[#bfff00]/50 transition-all duration-300 transform hover:scale-110">
               <Mail size={18} />
             </a>
           </div>
