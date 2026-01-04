@@ -1,5 +1,5 @@
 import Navbar from "../components/Navbar";
-import { Sparkles, Shield, Zap, Users, Brain, Target, Lightbulb, ChevronRight, ArrowRight, Github, Twitter, Linkedin, Mail, Upload, FileText, Loader2, CheckCircle, BarChart3, AlertCircle } from "lucide-react";
+import { Sparkles, Shield, Zap, Users, Brain, Target, Lightbulb, ChevronRight, ArrowRight, Github, Twitter, Linkedin, Mail, Upload, FileText, Loader2, CheckCircle, BarChart3, AlertCircle, Camera, Mic, Type } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 
@@ -383,6 +383,168 @@ export default function About() {
               Try Tattva Now
               <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
             </Link>
+          </div>
+        </section>
+
+        {/* NEW SECTION: Input Methods */}
+        <section 
+          ref={el => sectionRefs.current[9] = el}
+          className={`mb-20 transition-all duration-700 ${
+            visibleSections[9] ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+          }`}
+        >
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-5xl font-bold text-white mb-4 font-[font5] tracking-wider">Input Methods</h2>
+            <div className="w-24 h-1 bg-gradient-to-r from-[#bfff00] to-[#D3FD50] mx-auto rounded-full" />
+            <p className="text-gray-400 mt-4 max-w-2xl mx-auto px-4 font-[font1]">
+              Multiple ways to provide food information for analysis
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+            {/* Direct Text Input */}
+            <div className="p-6 rounded-2xl bg-black/40 backdrop-blur-xl border border-gray-800 hover:border-[#bfff00]/30 transition-all duration-300 group transform hover:-translate-y-2">
+              <div className="flex flex-col items-center">
+                <div className="p-4 rounded-full bg-[#bfff00]/10 mb-4 group-hover:bg-[#bfff00]/20 transition-colors">
+                  <Type className="w-8 h-8 text-[#bfff00]" />
+                </div>
+                <h3 className="text-xl font-bold text-white mb-3 font-[font5]">Direct Text Input</h3>
+                <p className="text-gray-400 text-center font-[font1]">
+                  Type or paste ingredients directly into the input field for instant analysis
+                </p>
+              </div>
+            </div>
+            
+            {/* File Upload */}
+            <div className="p-6 rounded-2xl bg-black/40 backdrop-blur-xl border border-gray-800 hover:border-[#bfff00]/30 transition-all duration-300 group transform hover:-translate-y-2">
+              <div className="flex flex-col items-center">
+                <div className="p-4 rounded-full bg-[#bfff00]/10 mb-4 group-hover:bg-[#bfff00]/20 transition-colors">
+                  <Upload className="w-8 h-8 text-[#bfff00]" />
+                </div>
+                <h3 className="text-xl font-bold text-white mb-3 font-[font5]">File Upload</h3>
+                <p className="text-gray-400 text-center font-[font1]">
+                  Upload JPG or PNG images of food labels for AI-powered analysis
+                </p>
+              </div>
+            </div>
+            
+            {/* Camera */}
+            <div className="p-6 rounded-2xl bg-black/40 backdrop-blur-xl border border-gray-800 hover:border-[#bfff00]/30 transition-all duration-300 group transform hover:-translate-y-2">
+              <div className="flex flex-col items-center">
+                <div className="p-4 rounded-full bg-[#bfff00]/10 mb-4 group-hover:bg-[#bfff00]/20 transition-colors">
+                  <Camera className="w-8 h-8 text-[#bfff00]" />
+                </div>
+                <h3 className="text-xl font-bold text-white mb-3 font-[font5]">Camera</h3>
+                <p className="text-gray-400 text-center font-[font1]">
+                  Use your device camera to capture food labels in real-time
+                </p>
+              </div>
+            </div>
+            
+            {/* Microphone */}
+            <div className="p-6 rounded-2xl bg-black/40 backdrop-blur-xl border border-gray-800 hover:border-[#bfff00]/30 transition-all duration-300 group transform hover:-translate-y-2">
+              <div className="flex flex-col items-center">
+                <div className="p-4 rounded-full bg-[#bfff00]/10 mb-4 group-hover:bg-[#bfff00]/20 transition-colors">
+                  <Mic className="w-8 h-8 text-[#bfff00]" />
+                </div>
+                <h3 className="text-xl font-bold text-white mb-3 font-[font5]">Voice Input</h3>
+                <p className="text-gray-400 text-center font-[font1]">
+                  Speak ingredients aloud using speech-to-text technology
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* NEW SECTION: Device Compatibility - MODIFIED LAYOUT */}
+        {/* NEW SECTION: Device Compatibility - MODIFIED LAYOUT */}
+        <section 
+          ref={el => sectionRefs.current[10] = el}
+          className="mb-20"
+        >
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-5xl font-bold text-white mb-4 font-[font5] tracking-wider">Available On All Devices</h2>
+            <div className="w-24 h-1 bg-gradient-to-r from-[#bfff00] to-[#D3FD50] mx-auto rounded-full" />
+            <p className="text-gray-400 mt-4 max-w-2xl mx-auto px-4 font-[font1]">
+              Experience Tattva seamlessly across all your devices
+            </p>
+          </div>
+          
+          {/* First Row: PC (Full Width) */}
+          <div className="flex flex-col items-center mb-12">
+            <div className="relative w-full max-w-4xl">
+              <div className="bg-gray-900 rounded-lg p-4 shadow-2xl">
+                <div className="bg-black rounded-t-md p-2 flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <div className="w-3 h-3 rounded-full bg-red-500"></div>
+                    <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
+                    <div className="w-3 h-3 rounded-full bg-green-500"></div>
+                  </div>
+                  <p className="text-xs text-gray-400 font-[font1]">Tattva</p>
+                </div>
+                <div className="bg-white rounded-b-md overflow-hidden">
+                  {/* Replace with your PC screenshot - auto-adjusts to image dimensions */}
+                  <img src="/ui/pc.png" alt="PC Interface" className="w-full h-auto object-contain" />
+                </div>
+              </div>
+            </div>
+            <h3 className="text-2xl font-bold text-white mt-6 font-[font5]">Desktop</h3>
+            <p className="text-gray-400 mt-2 text-center max-w-lg font-[font1]">
+              Full-featured experience with large screen interface
+            </p>
+          </div>
+          
+          {/* Second Row: Tablet and Mobile (2 Columns) */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
+            {/* Tablet */}
+            <div className="flex flex-col items-center">
+              <div className="relative w-full max-w-md">
+                <div className="bg-gray-900 rounded-lg p-4 shadow-2xl">
+                  <div className="bg-black rounded-t-md p-2 flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <div className="w-3 h-3 rounded-full bg-red-500"></div>
+                      <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
+                      <div className="w-3 h-3 rounded-full bg-green-500"></div>
+                    </div>
+                    <p className="text-xs text-gray-400 font-[font1]">Tattva</p>
+                  </div>
+                  <div className="bg-white rounded-b-md overflow-hidden">
+                    {/* Replace with your tablet screenshot - auto-adjusts to image dimensions */}
+                    <img src="/ui/tab.png" alt="Tablet Interface" className="w-full h-auto object-contain" />
+                  </div>
+                </div>
+              </div>
+              <h3 className="text-xl font-bold text-white mt-4 font-[font5]">Tablet</h3>
+              <p className="text-gray-400 mt-2 text-center font-[font1]">
+                Optimized touch interface for tablet devices
+              </p>
+            </div>
+            
+            {/* Mobile */}
+            <div className="flex flex-col items-center">
+              <div className="relative w-full max-w-md">
+                <div className="bg-gray-900 rounded-2xl p-3 shadow-2xl">
+                  <div className="bg-black rounded-t-lg p-2 flex items-center justify-center">
+                    <div className="flex items-center gap-1">
+                      <div className="w-2 h-2 rounded-full bg-gray-600"></div>
+                      <div className="w-2 h-2 rounded-full bg-gray-600"></div>
+                      <div className="w-2 h-2 rounded-full bg-gray-600"></div>
+                    </div>
+                  </div>
+                  <div className="bg-white rounded-b-lg overflow-hidden">
+                    {/* Replace with your mobile screenshot - auto-adjusts to image dimensions */}
+                    <img src="/ui/mobile.png" alt="Mobile Interface" className="w-full h-auto object-contain" />
+                  </div>
+                  <div className="bg-black rounded-b-lg p-1 flex justify-center">
+                    <div className="w-12 h-1 bg-gray-700 rounded-full"></div>
+                  </div>
+                </div>
+              </div>
+              <h3 className="text-xl font-bold text-white mt-4 font-[font5]">Mobile</h3>
+              <p className="text-gray-400 mt-2 text-center font-[font1]">
+                Compact design optimized for smartphone screens
+              </p>
+            </div>
           </div>
         </section>
 
