@@ -68,7 +68,7 @@ export default function Home() {
         <div className="absolute top-2/3 left-0 w-full h-px bg-gradient-to-r from-transparent via-emerald-500/10 to-transparent animate-pulse" style={{ animationDelay: "1.5s" }} />
       </div>
 
-      <main className="flex-1 w-full max-w-5xl mx-auto px-4 sm:px-6 z-10 flex flex-col justify-center pb-8 md:pb-12 pt-20 md:pt-52">
+      <main className="flex-1 w-full max-w-5xl mx-auto px-4 sm:px-6 z-10 flex flex-col justify-center pb-8 md:pb-8 pt-20 md:pt-45">
         
         {/* 1. IDLE STATE: Hero + Input */}
         {status === "IDLE" && (
@@ -110,7 +110,7 @@ export default function Home() {
             </div>
             
             {/* Enhanced Feature Pills with better spacing and effects */}
-            <div className="flex flex-wrap justify-center gap-3 pt-4 px-4">
+            <div className="flex flex-wrap justify-center gap-3 pt-2 px-4">
               <div className="px-4 py-2 rounded-full bg-black/60 backdrop-blur-md border border-[#bfff00]/20 text-sm text-gray-300 shadow-lg hover:shadow-[#bfff00]/10 transition-all duration-300 hover:scale-105 font-[font1]">
                 Instant Analysis
               </div>
