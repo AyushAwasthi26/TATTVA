@@ -1305,37 +1305,34 @@ export default function Input({ onAnalyze }) {
         activeElement.contentEditable === 'true'
       );
       
-      // Only handle paste if we're not already focused on an input
-      if (!isInputFocused) {
-        e.preventDefault();
-        
-        // Handle image paste
-        const items = Array.from(e.clipboardData.items);
-        let imageHandled = false;
-        
-        for (const item of items) {
-          if (item.type.indexOf('image') !== -1) {
-            const blob = item.getAsFile();
-            if (blob) {
-              const reader = new FileReader();
-              reader.onload = (event) => {
-                setUploadedImage(event.target.result.split(',')[1]);
-              };
-              reader.readAsDataURL(blob);
-              imageHandled = true;
-              break;
-            }
+      // Always check for images first, regardless of focus
+      const items = Array.from(e.clipboardData.items);
+      let imageHandled = false;
+      
+      for (const item of items) {
+        if (item.type.indexOf('image') !== -1) {
+          e.preventDefault(); // Prevent default for images
+          const blob = item.getAsFile();
+          if (blob) {
+            const reader = new FileReader();
+            reader.onload = (event) => {
+              setUploadedImage(event.target.result.split(',')[1]);
+            };
+            reader.readAsDataURL(blob);
+            imageHandled = true;
+            break;
           }
         }
-        
-        // Handle text paste if no image was found
-        if (!imageHandled) {
-          const text = e.clipboardData.getData('text');
-          if (text.trim()) {
-            setText(prev => prev + (prev ? " " : "") + text);
-            setPasteSuccess(true);
-            setTimeout(() => setPasteSuccess(false), 2000);
-          }
+      }
+      
+      // Only handle text paste if no image was found AND we're not focused on an input
+      if (!imageHandled && !isInputFocused) {
+        e.preventDefault();
+        const text = e.clipboardData.getData('text');
+        if (text.trim()) {
+          setText(prev => prev + (prev ? " " : "") + text);
+          setPasteSuccess(true);
+          setTimeout(() => setPasteSuccess(false), 2000);
         }
       }
     };
@@ -1817,5 +1814,3 @@ export default function Input({ onAnalyze }) {
     </div>
   );
 }
-
-
